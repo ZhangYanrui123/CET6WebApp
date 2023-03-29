@@ -1,2 +1,3 @@
-# CET6WebApp
-CET6SoftEngeering
+# 英语六级考试报考系统
+这是NKU软件工程课程大作业，ddl 2023年6月4日24：00！:suprised:
+
