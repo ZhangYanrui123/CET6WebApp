@@ -19,14 +19,26 @@ const routes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // },
   {
-    path: '/index',
+    path: '/teacher',
     component: () => import('@/components/admin/index'),
-    // children: [
-    //   {
-    //     path: '/', //首页默认路由
-    //     component: () => import('@/components/common/hello')
-    //   },
-    // ]
+    children: [
+      {
+        path: '/', //首页默认路由
+        component: () => import('@/components/common/hello')
+      },
+      {
+        path: 'addExam', //添加考试
+        component: () => import('@/components/teacher/addExam')
+      },
+      {
+        path: 'addAnswer', //增加题库主界面
+        component: () => import('@/components/teacher/addAnswer')
+      },
+      {
+        path: 'addAnswerChildren', //点击试卷跳转到添加题库页面
+        component: () => import('@/components/teacher/addAnswerChildren')
+      },
+    ]
   }
 ]
 
