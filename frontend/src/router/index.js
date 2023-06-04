@@ -27,19 +27,47 @@ const routes = [
         component: () => import('@/components/common/hello')
       },
       {
-        path: 'addExam', //添加考试
+        path: '/addExam', //添加考试
         component: () => import('@/components/teacher/addExam')
       },
       {
-        path: 'addAnswer', //增加题库主界面
+        path: '/addAnswer', //增加题库主界面
         component: () => import('@/components/teacher/addAnswer')
       },
       {
-        path: 'addAnswerChildren', //点击试卷跳转到添加题库页面
+        path: '/addAnswerChildren', //点击试卷跳转到添加题库页面
         component: () => import('@/components/teacher/addAnswerChildren')
       },
+      {
+        path: '/selectExam', //查询所有考试
+        component: () => import('@/components/teacher/selectExam')
+      },
+      {
+        path: '/teacherInfo', 
+        component: () => import('@/components/teacher/teacherInfo')
+      },
+      {
+        path: '/grade', 
+        component: () => import('@/components/teacher/grade')
+      },
+      {
+        path: '/studentManage', //学生管理界面
+        component: () => import('@/components/teacher/studentManage')
+      },
+      {
+        path: '/addStudent', //添加学生
+        component: () => import('@/components/teacher/addStudent')
+      },
+      {
+        path: '/teacherManage',
+        component: () => import('@/components/admin/tacherManage')
+      },
+      {
+        path: '/addTeacher',
+        component: () => import ('@/components/admin/addTeacher')
+      }
     ]
-  }
+  },
 ]
 
 const router = new VueRouter({

@@ -2,14 +2,14 @@
 <template>
   <div id="left">
     <el-menu
-      active-text-color="#dd5862" 
+      active-text-color="rgb(244, 103, 103)" 
       text-color="#000" 
       :default-active="this.$route.path"
       class="el-menu-vertical-demo" 
       @open="handleOpen" 
       @close="handleClose" 
       :collapse="flag"
-      background-color="#124280"  
+      background-color="#974acd"  
       menu-trigger="click" router>
       <el-submenu v-for="(item,index) in menu" :index='item.index' :key="index">
         <template slot="title">
@@ -80,10 +80,11 @@ export default {
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   min-height: 900px;
+  background-color: rgb(244, 103, 103);
 }
 #left {
   height: 900px;
-  background-color: #124280;
+  background-color: rgb(171, 69, 212);
   z-index: 0;
 }
 #left .el-menu-vertical-demo .title {
@@ -102,84 +103,3 @@ export default {
     color: #fbfbfc !important;
 }
 </style>
-
-<!-- <template>
-  <div class="left">
-    <div class="sidebar">
-      <ul>
-        <li v-for="item in navItems" :key="item.id" @click="selectNavItem(item.id)">
-          {{ item.name }}
-        </li>
-      </ul>
-    </div>
-    <div class="content">
-      <div v-if="selectedNavItem">
-        <h2>{{ selectedNavItem.name }}</h2>
-        <p>{{ selectedNavItem.description }}</p>
-      </div>
-      <div v-else>
-        <p>Please select a navigation item.</p>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      navItems: [
-        {
-          id: 1,
-          name: 'Item 1',
-          description: 'This is the content for Item 1.'
-        },
-        {
-          id: 2,
-          name: 'Item 2',
-          description: 'This is the content for Item 2.'
-        },
-        {
-          id: 3,
-          name: 'Item 3',
-          description: 'This is the content for Item 3.'
-        }
-      ],
-      selectedNavItem: null
-    };
-  },
-  methods: {
-    selectNavItem(id) {
-      this.selectedNavItem = this.navItems.find(item => item.id === id);
-    }
-  }
-};
-</script>
-
-<style>
-.container {
-  display: flex;
-}
-
-.sidebar {
-  width: 200px;
-  background-color: #f0f0f0;
-  padding: 20px;
-}
-
-.content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-</style> -->

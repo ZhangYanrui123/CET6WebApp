@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 #nav .el-breadcrumb {
-  height: 60px;
+  height: 30px;
   line-height: 60px;
   padding-left: 20px;
 }
