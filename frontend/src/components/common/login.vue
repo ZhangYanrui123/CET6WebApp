@@ -2,29 +2,24 @@
     <div id="login">
       <el-row class="main-container">
         <el-col :lg="8" :xs="16" :md="10" :span="10">
-          <div class="top">
-            <i class="iconfont icon-kaoshi"></i><span class="title">在线考试系统</span>
-          </div>
           <div class="bottom">
             <div class="container">
-              <p class="title">账号登录</p>
-              <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+              <p class="title">六级报考系统登录</p>
+              <el-form label-width="80px">
                 <el-form-item label="用户名">
-                  <el-input v-model.number="formLabelAlign.username" placeholder="请输入用户名"></el-input>
+                  <el-input v-model="user.uname" placeholder="请输入用户名"></el-input>
                 </el-form-item>
                 <el-form-item label="密码">
-                  <el-input v-model="formLabelAlign.password" placeholder="请输入密码" type='password'></el-input>
+                  <el-input v-model="user.password" placeholder="请输入密码" type='password'></el-input>
                 </el-form-item>
                 <div class="submit">
                   <el-button type="primary" class="row-login" @click="login()">登录</el-button>
                 </div>
-                <!-- <div class="options">
-                  <p class="find"><a href="javascript:;">找回密码</a></p>
+                <div class="options">
                   <div class="register">
-                    <span>没有账号?</span>
-                    <span><a href="javascript:;">去注册</a></span>
+                    <span><a href="javascript:;" @click = "register">注册账号</a></span>
                   </div>
-                </div> -->
+                </div>
               </el-form>
             </div>
           </div>
@@ -34,50 +29,39 @@
   </template>
   
   <script>
-  import {mapState} from 'vuex'
   export default {
     name: "login",
     data() {
       return {
-        role: 2,
-        labelPosition: 'left',
-        formLabelAlign: {
-          username: '20154084',
-          password: '123456'
+        role: 0,
+        user:{
+          uname:null,
+          password:null
         }
       }
     },
     methods: {
-      //用户登录请求后台处理
       login() {
-        console.log("登录操作执行-------");
+        console.log("登录中");
         this.$axios({
           url: `/api/login`,
           method: 'post',
-          data: {
-            ...this.formLabelAlign
-          }
+          data: this.user
         }).then(res=>{
-          let resData = res.data.data
-          if(resData != null) {
-            switch(resData.role) {
-              case "0":  //管理员
-                this.$cookies.set("uname", resData.adminName)
-                this.$cookies.set("uuid", resData.adminId)
-                this.$cookies.set("urole", 0)
-                this.$router.push({path: '/index' }) //跳转到首页
-                break
-              case "1": //教师
-                this.$cookies.set("uname", resData.teacherName)
-                this.$cookies.set("uuid", resData.teacherId)
-                this.$cookies.set("urole", 1)
-                this.$router.push({path: '/index' }) //跳转到教师用户
+          let userData = res.data.data
+          if(userData != null) {
+            this.$cookies.set("uname", userData.uname)
+            this.$cookies.set("uuid", userData.uuid)
+            this.$cookies.set("role", userData.role)
+            switch(userData.role) {
+              case "1":  //管理员
+                this.$router.push({path: '/index' })
                 break
               case "2": //学生
-                this.$cookies.set("uname", resData.studentName)
-                this.$cookies.set("uuid", resData.studentId)
-                  this.$cookies.set("urole", 2)
-                this.$router.push({path: '/student'})
+                this.$router.push({path: '/student' })
+                break
+              case "3": //教师
+                this.$router.push({path: '/teacher'})
                 break
             }
           }
@@ -90,13 +74,9 @@
           }
         })
       },
-      clickTag(key) {
-        this.role = key
+      register(){
+        this.$router.push({path: '/register'})
       }
-    },
-    computed: mapState(["userInfo"]),
-    mounted() {
-  
     }
   }
   </script>

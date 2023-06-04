@@ -50,7 +50,6 @@
     },
     created() {
       this.getScoreInfo()
-      this.loading = true
     },
     methods: {
       //获取当前所有成绩信息

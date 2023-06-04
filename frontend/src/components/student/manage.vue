@@ -150,11 +150,17 @@
         upwd:null
       }
     },
+<<<<<<< HEAD
+    created() { 
+        //this.getCookies()
+        //this.getUserData()
+=======
     created() { //cookies都没加
         this.getCookies()
         console.log('vue created')
         console.log(this.userInfo.name)
         this.getUserData()
+>>>>>>> 62fad54ac64d8d3ba35e0e55ed3fa4265be44589
         this.resetEditData()
     },
     methods: {
@@ -164,7 +170,11 @@
             this.userInfo.role = this.$cookies.get("urole")
         },
         getUserData(){
+<<<<<<< HEAD
+            this.$axios({url: '/api/score',method: 'post',data: {uuid: this.userInfo.id}}).then(res => {
+=======
             this.$axios({url: 'http://127.0.0.1:8081/api/user',method: 'post',data: this.userInfo}).then(res => {
+>>>>>>> 62fad54ac64d8d3ba35e0e55ed3fa4265be44589
                 this.userData = res.data.data
             })
         },

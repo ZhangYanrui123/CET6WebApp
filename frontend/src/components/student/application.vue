@@ -132,9 +132,9 @@
         toCancel: false,
         succCancel: false,
         failCancel: false,
-        userInfo: {
-            name : null,
-            id : null
+        user: {
+            uname : null,
+            uuid : null
         },
         userData: {suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
         sgrade:"20",sclass:"1",smajority:"jsjkxyjs",sno:"20xxxxx"},
@@ -142,28 +142,31 @@
         {jstate : 0,famount:25}]
       }
     },
-    created() { //cookies都没加
+    created() { 
         getCookies()
         getUserData()
         getApplyData()
     },
     methods: {
         getCookies() {  //获取cookie
-            this.userInfo.name = this.$cookies.get("uname")
-            this.userInfo.id = this.$cookies.get("uuid")
+            this.user.uname = this.$cookies.get("uname")
+            this.user.uuid = this.$cookies.get("uuid")
         },
         getUserData(){
-            this.$axios({url: '/api/score',method: 'post',data: this.userInfo.id}).then(res => {
+            //获取用户信息，需要学生用户除了密码和qstate的所有属性
+            this.$axios({url: '/api/score',method: 'post',data: this.user.id}).then(res => { 
                 this.userData = res.data.data
             })
         },
         getApplyData(){
-            this.$axios({url: '/api/score',method: 'post',data: this.userInfo.id}).then(res => {
+            //获取用户报名信息，需要报名状态和金额，按照口语、笔试的科目顺序传输
+            this.$axios({url: '/api/score',method: 'post',data: this.user.id}).then(res => { 
                 this.applyData = res.data.data
             })
         },
         apply(){
-            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.userInfo.id, apply:this.nowSubject}}).then(res => {
+            //提交用户报名信息，包含id和科目
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
                 if(res.data.data){
                     getApplyData()
                     succApply = true
@@ -174,7 +177,8 @@
             })
         },
         cancel(){
-            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.userInfo.id, apply:this.nowSubject}}).then(res => {
+            //提交用户撤销报名信息，包含id和科目
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
                 if(res.data.data){
                     getApplyData()
                     succCancel = true
@@ -185,6 +189,7 @@
             })
         },
         pay(){
+            //进入交费页面
             this.$router.push({path: '/payment', query: {nowSubject: this.nowSubject}})
         }
     }
