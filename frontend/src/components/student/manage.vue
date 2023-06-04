@@ -58,7 +58,7 @@
                 <el-button @click = "nowEdit=2;editPassword = true">修改密码</el-button>
         </div>
         <el-dialog title='修改信息' center :visible.sync='editUser'>
-            <el-form ref="form" :model="form" label-width="70px">
+            <el-form label-width="70px">
                 <el-form-item label="姓名">
                     <el-input v-model="editData.uname" placeholder="请输入内容"></el-input>
                 </el-form-item>
@@ -78,7 +78,7 @@
                     <el-input v-model="editData.umail" placeholder="请输入内容"></el-input>
                 </el-form-item>
                 <el-form-item label="证件类型">
-                    <el-select v-model="editData.udoctype" @change="onTitleChange">
+                    <el-select v-model="editData.udoctype">
                         <el-option label="身份证" value="0"></el-option>
                         <el-option label="护照" value="1"></el-option>
                     </el-select>
@@ -127,6 +127,8 @@
   
   <script>
   
+  import axios from "axios";
+
   export default {
     data() {
       return {
@@ -136,8 +138,9 @@
         editUser:false,
         editPassword:false,
         userInfo: {
-            name : null,
-            id : null
+            name : 'xuechen',
+            id : 0,
+            role: 0,
         },
         userData: {uuid:null,suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
         sgrade:"20",sclass:"2",smajority:"jsjkxyjs",sno:"2011111",ubirth:"2023/6/4",usex:true,},
@@ -148,17 +151,20 @@
       }
     },
     created() { //cookies都没加
-        //this.getCookies()
-        //this.getUserData()
+        this.getCookies()
+        console.log('vue created')
+        console.log(this.userInfo.name)
+        this.getUserData()
         this.resetEditData()
     },
     methods: {
         getCookies() {  //获取cookie
             this.userInfo.name = this.$cookies.get("uname")
             this.userInfo.id = this.$cookies.get("uuid")
+            this.userInfo.role = this.$cookies.get("urole")
         },
         getUserData(){
-            this.$axios({url: '/api/score',method: 'post',data: this.userInfo.id}).then(res => {
+            this.$axios({url: 'http://127.0.0.1:8081/api/user',method: 'post',data: this.userInfo}).then(res => {
                 this.userData = res.data.data
             })
         },

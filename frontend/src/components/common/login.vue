@@ -62,20 +62,21 @@
           if(resData != null) {
             switch(resData.role) {
               case "0":  //管理员
-                this.$cookies.set("cname", resData.adminName)
-                this.$cookies.set("cid", resData.adminId)
-                this.$cookies.set("role", 0)
+                this.$cookies.set("uname", resData.adminName)
+                this.$cookies.set("uuid", resData.adminId)
+                this.$cookies.set("urole", 0)
                 this.$router.push({path: '/index' }) //跳转到首页
                 break
               case "1": //教师
-                this.$cookies.set("cname", resData.teacherName)
-                this.$cookies.set("cid", resData.teacherId)
-                this.$cookies.set("role", 1)
+                this.$cookies.set("uname", resData.teacherName)
+                this.$cookies.set("uuid", resData.teacherId)
+                this.$cookies.set("urole", 1)
                 this.$router.push({path: '/index' }) //跳转到教师用户
                 break
               case "2": //学生
-                this.$cookies.set("cname", resData.studentName)
-                this.$cookies.set("cid", resData.studentId)
+                this.$cookies.set("uname", resData.studentName)
+                this.$cookies.set("uuid", resData.studentId)
+                  this.$cookies.set("urole", 2)
                 this.$router.push({path: '/student'})
                 break
             }
