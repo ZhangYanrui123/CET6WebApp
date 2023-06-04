@@ -159,6 +159,7 @@
                         uuid: this.user.uuid,
                         eid: this.eid
                     }})
+        this.$router.push({path: '/student' })
       },
       countDown () { //倒计时
         setInterval(() => {

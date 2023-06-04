@@ -8,7 +8,7 @@
                 <li><router-link to="/scoreTable">查看成绩</router-link></li>
                 <li><router-link to="/manage">管理信息</router-link></li>
                 <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
-                    <a href="javascript:;"><!--{{user.userName}}-->用户名</a>
+                    <a href="javascript:;">{{uname}}</a>
                     <div class="ex" v-if="flag">
                         <p class="exit" @click="exit()">退出</p>
                     </div>
@@ -26,18 +26,22 @@
     data() {
       return {
         flag: false,
-        user: {}
+        uname: null
       }
     },
     created() {
-      this.userInfo()
+      this.getCookies()
     },
     methods: {
       exit() {  //退出登录
+        this.$cookies.set("uname", null)
+        this.$cookies.set("uuid", null)
+        this.$cookies.set("role", 0)
         this.$router.push({path:"/"}) //跳转到登录页面
       },
-      userInfo() {
-      }
+      getCookies() {  //获取cookie
+            this.uname = this.$cookies.get("uname")
+        },
     }
   }
   </script>
