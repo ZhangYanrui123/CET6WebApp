@@ -44,77 +44,68 @@
             <table class="applyData" border = "1">
                 <tr>
                     <td>科目</td>
+                    <td>开始时间</td>
+                    <td>结束时间</td>
                     <td>报名状态</td>
                     <td>费用</td>
                     <td>支付状态</td>
                     <td>报名操作</td>
                 </tr>
-                <tr>
-                    <td>六级口语</td>
+                <tr v-for="(item,index) in this.applyData" :key="index">
                     <td>
-                        <span v-if = "this.applyData[0].jstate == 2 || this.applyData[0].jstate == 1">已报名</span>
-                        <span v-if = "this.applyData[0].jstate == 0">未报名</span>
+                        <span v-if = "item.esubject == 1">六级笔试</span>
+                        <span v-if = "item.esubject == 2">六级口语</span>
                     </td>
                     <td>
-                        <span>{{this.applyData[0].famount}}</span>
+                        <span>{{item.ebegin}}</span>
                     </td>
                     <td>
-                        <span v-if = "this.applyData[0].jstate == 0">未报名</span>
-                        <span v-if = "this.applyData[0].jstate == 1" @click="nowSubject = 1;pay()">点击支付</span>
-                        <span v-if = "this.applyData[0].jstate == 2">已支付</span>
+                        <span>{{item.eend}}</span>
                     </td>
                     <td>
-                        <span v-if = "this.applyData[0].jstate == 0" @click="nowSubject = 1;toApply = true">报名</span>
-                        <span v-if = "this.applyData[0].jstate == 1" @click="nowSubject = 1;toCancel = true">撤销报名</span>
-                        <span v-if = "this.applyData[0].jstate == 2">已支付，无法撤销</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>六级笔试</td>
-                    <td>
-                        <span v-if = "this.applyData[1].jstate == 2 || this.applyData[1].jstate == 1">已报名</span>
-                        <span v-if = "this.applyData[1].jstate == 0">未报名</span>
+                        <span v-if = "item.jstate == 0">未报名</span>
+                        <span v-if = "item.jstate == 1||item.jstate == 2">已报名</span>
                     </td>
                     <td>
-                        <span>{{this.applyData[1].famount}}</span>
+                        <span>{{this.item.famount}}</span>
                     </td>
                     <td>
-                        <span v-if = "this.applyData[1].jstate == 0">未报名</span>
-                        <span v-if = "this.applyData[1].jstate == 1" @click="nowSubject = 1;pay()">点击支付</span>
-                        <span v-if = "this.applyData[1].jstate == 2">已支付</span>
+                        <span v-if = "item.jstate == 0">未报名</span>
+                        <el-button v-if = "item.jstate == 1" @click="nowExam = index;pay()">点击支付</el-button>
+                        <span v-if = "item.jstate == 2">已支付</span>
                     </td>
                     <td>
-                        <span v-if = "this.applyData[1].jstate == 0" @click="nowSubject = 2;toApply = true">报名</span>
-                        <span v-if = "this.applyData[1].jstate == 1" @click="nowSubject = 2;toCancel = true">撤销报名</span>
-                        <span v-if = "this.applyData[1].jstate == 2">已支付，无法撤销</span>
+                        <el-button v-if = "item.jstate == 0" @click="nowExam = index;toApply = true">报名</el-button>
+                        <el-button v-if = "item.jstate == 1" @click="nowExam = index;toCancel = true">撤销报名</el-button>
+                        <span v-if = "item.jstate == 2">已支付，无法撤销</span>
                     </td>
                 </tr>
             </table>
         </div>
         <el-dialog title='提交报名信息' center :visible.sync='toApply'>
-            确定要报名<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试吗？<br/>
+            确定要报名<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试吗？<br/>
             <el-button @click = "toApply = false;apply()">确定</el-button>
             <el-button @click = "toApply = false">取消</el-button>
         </el-dialog>
         <el-dialog title='报名成功' center :visible.sync='succApply'>
-            您已成功报名<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试！<br/>
+            您已成功报名<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试！<br/>
             <el-button @click = "succApply = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='报名失败' center :visible.sync='failApply'>
-            报名<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试失败！<br/>
+            报名<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试失败！<br/>
             <el-button @click = "failApply = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='撤销报名' center :visible.sync='toCancel'>
-            确定要撤销对<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试的报名吗？<br/>
+            确定要撤销对<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试的报名吗？<br/>
             <el-button @click = "toCancel = false;Cancel()">确定</el-button>
             <el-button @click = "toCancel = false">取消</el-button>
         </el-dialog>
         <el-dialog title='撤销成功' center :visible.sync='succCancel'>
-            您已成功撤销对<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试的报名！<br/>
+            您已成功撤销对<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试的报名！<br/>
             <el-button @click = "succCancel = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='撤销失败' center :visible.sync='failCancel'>
-            对<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试的报名撤销失败！<br/>
+            对<span v-if = "applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam].eid == 2">六级笔试</span>考试的报名撤销失败！<br/>
             <el-button @click = "failCancel = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='付款成功' center :visible.sync='succPay'>
@@ -129,7 +120,7 @@
   export default {
     data() {
       return {
-        nowSubject: 0,
+        nowExam: 0,
         toApply: false,
         succApply: false,
         failApply: false,
@@ -142,7 +133,7 @@
             uuid : null
         },
         userData: {},
-        applyData: [{jstate: 0},{jstate: 1}]
+        applyData: []
       }
     },
     created() { 
@@ -162,14 +153,14 @@
             })
         },
         getApplyData(){
-            //获取用户报名信息，需要报名状态和金额，按照口语、笔试的科目顺序传输
+            //获取用户可报名信息，需要考试eid，科目，开始时间，结束时间，报名状态和金额，
             this.$axios({url: '/api/score',method: 'post',data: this.user.id}).then(res => { 
                 this.applyData = res.data.data
             })
         },
         apply(){
-            //提交用户报名信息，包含id和科目
-            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
+            //提交用户报名信息，包含id和eid
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
                 if(res.data.data){
                     getApplyData()
                     this.succApply = true
@@ -180,8 +171,8 @@
             })
         },
         cancel(){
-            //提交用户撤销报名信息，包含id和科目
-            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
+            //提交用户撤销报名信息，包含id和eid
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
                 if(res.data.data){
                     getApplyData()
                     this.succCancel = true
@@ -193,9 +184,9 @@
         },
         pay(){
             //进入交费页面
-            //this.$router.push({path: '/payment', query: {nowSubject: this.nowSubject}})
+            //this.$router.push({path: '/payment', query: {applyData[nowExam].eid: this.applyData[nowExam].eid}})
             //提交用户交费信息，成功就完事了
-            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
                 if(res.data.data){
                     getApplyData()
                     this.succPay = true

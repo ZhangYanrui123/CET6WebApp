@@ -98,5 +98,11 @@ color: #000;
 .home .bottom{
 width: 100%;
 height: 700px;
+display: flex;
+}
+.home .bottom span{
+font-size: 50px;
+padding-top: 100px;
+padding-left: 100px;
 }
 </style>

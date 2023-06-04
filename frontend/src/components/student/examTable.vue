@@ -8,10 +8,10 @@
         <div class="info">
           考试类型：
           <span v-show="item.esubject == 1">
-            六级口语
+            六级笔试
           </span>
           <span v-show="item.esubject == 2">
-            六级笔试
+            六级口语
           </span>&nbsp;&nbsp;&nbsp;&nbsp;
           开始时间：<span>{{item.ebegin}}</span>&nbsp;&nbsp;结束时间：<span>{{item.eend}}</span><br/>
           考试状态：
