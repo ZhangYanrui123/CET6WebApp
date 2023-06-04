@@ -116,11 +116,11 @@
                             let options = res.data.data
                             this.objectOption.push(options)
                         })
-                        answer.push(0)
+                        this.answer.push(0)
                     }
                     else{
                         this.objectOption.push(null)
-                        answer.push(null)
+                        this.answer.push(null)
                     }
                 }
             })
@@ -179,7 +179,7 @@
   ul{
   list-style-type:none
   }
-  .top{
+  .answer .top{
     height: 70px;
     font-size: 30px;
     background-color: #3e73d69b;
@@ -190,13 +190,13 @@
 	align-items: center;
     justify-content: center;
   }
-  .top b{
+  .answer .top b{
     color: #ba1111c6;
   }
-  .top .count{
+  .answer .top .count{
     color: #2868de;
   }
-  .top span{
+  .answer .top span{
     padding: 30px;
   }
   .answerArea{

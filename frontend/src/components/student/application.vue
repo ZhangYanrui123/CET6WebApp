@@ -80,7 +80,7 @@
                     </td>
                     <td>
                         <span v-if = "this.applyData[1].jstate == 0">未报名</span>
-                        <span v-if = "this.applyData[1].jstate == 1">未支付</span>
+                        <span v-if = "this.applyData[1].jstate == 1" @click="nowSubject = 1;pay()">点击支付</span>
                         <span v-if = "this.applyData[1].jstate == 2">已支付</span>
                     </td>
                     <td>
@@ -117,6 +117,10 @@
             对<span v-if = "nowSubject == 1">六级口语</span><span v-if = "nowSubject == 2">六级笔试</span>考试的报名撤销失败！<br/>
             <el-button @click = "failCancel = false">关闭</el-button>
         </el-dialog>
+        <el-dialog title='付款成功' center :visible.sync='succPay'>
+            您已成功付款！
+            <el-button @click = "succPay = false">关闭</el-button>
+        </el-dialog>
     </div>
   </template>
   
@@ -132,14 +136,13 @@
         toCancel: false,
         succCancel: false,
         failCancel: false,
+        succPay:false,
         user: {
             uname : null,
             uuid : null
         },
-        userData: {suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"1",smajority:"jsjkxyjs",sno:"20xxxxx"},
-        applyData: [{jstate : 1,famount:30},
-        {jstate : 0,famount:25}]
+        userData: {},
+        applyData: [{jstate: 0},{jstate: 1}]
       }
     },
     created() { 
@@ -169,10 +172,10 @@
             this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
                 if(res.data.data){
                     getApplyData()
-                    succApply = true
+                    this.succApply = true
                 }
                 else{
-                    failApply = true
+                    this.failApply = true
                 }
             })
         },
@@ -181,16 +184,25 @@
             this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
                 if(res.data.data){
                     getApplyData()
-                    succCancel = true
+                    this.succCancel = true
                 }
                 else{
-                    failCancel = true
+                    this.failCancel = true
                 }
             })
         },
         pay(){
             //进入交费页面
-            this.$router.push({path: '/payment', query: {nowSubject: this.nowSubject}})
+            //this.$router.push({path: '/payment', query: {nowSubject: this.nowSubject}})
+            //提交用户交费信息，成功就完事了
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, apply:this.nowSubject}}).then(res => {
+                if(res.data.data){
+                    getApplyData()
+                    this.succPay = true
+                }
+                else{
+                }
+            })
         }
     }
   }

@@ -7,7 +7,7 @@
             <table class="userData">
                 <tr>
                     <td>用户类型：</td>
-                    <td colspan="5"><span>{{this.userData.utype}}</span></td>
+                    <td colspan="5"><span>学生</span></td>
                 </tr>
                 <tr>
                     <td>姓名：</td>
@@ -126,9 +126,6 @@
   </template>
   
   <script>
-  
-  import axios from "axios";
-
   export default {
     data() {
       return {
@@ -142,25 +139,17 @@
             id : 0,
             role: 0,
         },
-        userData: {uuid:null,suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"2",smajority:"jsjkxyjs",sno:"2011111",ubirth:"2023/6/4",usex:true,},
-        editData: {uuid:null,suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"1",smajority:"jsjkxyjs",sno:"2011111",ubirth:"2023/6/4",usex:true,},
+        userData: {},
+        editData: {},
         password:null,
         upwd:null
       }
     },
-<<<<<<< HEAD
     created() { 
-        //this.getCookies()
-        //this.getUserData()
-=======
-    created() { //cookies都没加
         this.getCookies()
         console.log('vue created')
         console.log(this.userInfo.name)
         this.getUserData()
->>>>>>> 62fad54ac64d8d3ba35e0e55ed3fa4265be44589
         this.resetEditData()
     },
     methods: {
@@ -170,11 +159,7 @@
             this.userInfo.role = this.$cookies.get("urole")
         },
         getUserData(){
-<<<<<<< HEAD
-            this.$axios({url: '/api/score',method: 'post',data: {uuid: this.userInfo.id}}).then(res => {
-=======
             this.$axios({url: 'http://127.0.0.1:8081/api/user',method: 'post',data: this.userInfo}).then(res => {
->>>>>>> 62fad54ac64d8d3ba35e0e55ed3fa4265be44589
                 this.userData = res.data.data
             })
         },
@@ -187,20 +172,20 @@
             this.$axios({url: '/api/score',method: 'post',data: this.editData}).then(res => {
                 if(res.data.data){
                     getUserData()
-                    success = true
+                    this.success = true
                 }
                 else{
-                    fail = true
+                    this.fail = true
                 }
             })
         },
         passwordEdit(){
             this.$axios({url: '/api/score',method: 'post',data: {uuid:this.userInfo.uuid, upwd:this.upwd, password:this.password}}).then(res => {
                 if(res.data.data){
-                    success = true
+                    this.success = true
                 }
                 else{
-                    fail = true
+                    this.fail = true
                 }
             })
         }

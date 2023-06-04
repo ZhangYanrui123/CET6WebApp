@@ -45,21 +45,29 @@
           total: null, //记录条数
           size: 6, //每页条数
           records: [{esubject : 1,ebegin : 2,eend : 3,gtotal : 100},{esubject : 2,ebegin : 2,eend : 3,gtotal : 50}]
-        }
+        },
+        uuid: null
       }
     },
     created() {
+      this.getCookies()
       this.getScoreInfo()
     },
     methods: {
+      getCookies() {  //获取cookie
+            this.uuid = this.$cookies.get("uuid")
+    },
       //获取当前所有成绩信息
       getScoreInfo() {
-        this.$axios(`/api/scores/${this.pagination.current}/${this.pagination.size}`).then(res => {
-          this.pagination.records = res.data.data
-          this.loading = false
-        }).catch(error => {
-          console.log(error)
-        })
+        this.$axios({url: '/api/score',method: 'post',data: {
+        uuid:this.uuid,
+        current: this.pagination.current,
+        size: this.pagination.size
+      }}).then(res => {
+        this.pagination.records = res.data.data
+      }).catch(error => {
+        console.log(error)
+      })
       },
       //改变当前记录条数
       handleSizeChange(val) {

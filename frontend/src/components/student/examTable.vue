@@ -3,7 +3,7 @@
     <ul class="top">
       <span class="order">考试列表</span> <!--可以添加考试查询，按照分类-->
     </ul>
-    <ul class="paper" v-loading="loading">
+    <ul class="paper">
       <li class="item" v-for="(item,index) in pagination.records" :key="index">
         <div class="info">
           考试类型：
@@ -66,7 +66,6 @@
 export default {
   data() {
     return {
-      loading: false,
       open: false,
       pagination: { //分页后的考试信息
         current: 1, //当前页
@@ -79,18 +78,26 @@ export default {
         cclassroon: 2,
         copen: 3,
         cclose: 4
-      }
+      },
+      uuid: null
     }
   },
   created() {
-    //this.getExamInfo()
+    this.getCookies()
+    this.getExamInfo()
   },
   methods: {
-    //获取当前所有考试信息
+    getCookies() {  //获取cookie
+            this.uuid = this.$cookies.get("uuid")
+    },
+    //获取学生考试信息
     getExamInfo() {
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
+      this.$axios({url: '/api/score',method: 'post',data: {
+        uuid:this.uuid,
+        current: this.pagination.current,
+        size: this.pagination.size
+      }}).then(res => {
         this.pagination.records = res.data.data
-        this.loading = false
       }).catch(error => {
         console.log(error)
       })
