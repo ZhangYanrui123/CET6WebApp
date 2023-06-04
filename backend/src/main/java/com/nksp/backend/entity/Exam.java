@@ -12,4 +12,13 @@ public class Exam {
     Date eend;
     int esubject;
     int estate;
+
+    public void setInfo(Exam exam){
+        this.eid = exam.eid;
+        this.cid = exam.cid;
+        this.ebegin = exam.ebegin;
+        this.eend = exam.eend;
+        this.esubject = exam.esubject;
+        this.estate = exam.estate;
+    }
 }

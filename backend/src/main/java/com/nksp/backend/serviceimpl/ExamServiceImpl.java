@@ -18,4 +18,7 @@ public class ExamServiceImpl implements ExamService {
     public Exam findById(Integer eid) {
         return examMapper.findById(eid);
     }
+
+    @Override
+    public int addExam(Exam exam){return examMapper.addExam(exam);}
 }

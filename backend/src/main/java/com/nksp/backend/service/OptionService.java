@@ -5,4 +5,6 @@ import com.nksp.backend.entity.Question;
 
 public interface OptionService {
     Option findById(Integer oid);
+
+    int insertOption(Option option);
 }

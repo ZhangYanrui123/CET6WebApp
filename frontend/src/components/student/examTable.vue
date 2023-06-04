@@ -83,8 +83,8 @@ export default {
     }
   },
   created() {
-    this.getExamInfo()
-    this.loading = true
+    //this.getExamInfo()
+    //this.loading = true
   },
   methods: {
     //获取当前所有考试信息

@@ -5,4 +5,6 @@ import com.nksp.backend.entity.Teacher;
 
 public interface QuestionService {
     Question findById(Integer qid);
+
+    int insertQues(Question question);
 }

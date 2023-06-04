@@ -100,9 +100,9 @@
       }
     },
     created() {
-      this.getCookies()
-      this.getExamData()
-      this.showTime()
+      //this.getCookies()
+      //this.getExamData()
+      //this.showTime()
     },
     methods: {
       getTime(date) { //日期格式化

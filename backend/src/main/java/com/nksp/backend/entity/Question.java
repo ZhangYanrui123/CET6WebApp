@@ -6,8 +6,15 @@ import lombok.Data;
 public class Question {
     int qid;
     int qtype;
-    int qdiffculty;
+    int qdifficulty;
     String qstem;
     int qnum;
     int qbelong;
+
+    public void setQuestion(int qtype, String qstem, int qnum, int qbelong){
+        this.qtype = qtype;
+        this.qstem = qstem;
+        this.qnum = qnum;
+        this.qbelong = qbelong;
+    }
 }

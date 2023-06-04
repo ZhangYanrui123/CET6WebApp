@@ -7,5 +7,11 @@ public class Option {
     int oid;
     int qid;
     String ocontent;
-    boolean isright;
+    boolean oisright;
+
+    public void setOption(int qid, String ocontent, boolean oisright){
+        this.qid = qid;
+        this.ocontent = ocontent;
+        this.oisright = oisright;
+    }
 }

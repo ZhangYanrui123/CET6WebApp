@@ -1,7 +1,6 @@
 package com.nksp.backend.mapper;
 
-import com.nksp.backend.entity.LoginInfo;
-import com.nksp.backend.entity.User;
+import com.nksp.backend.vo.LoginInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

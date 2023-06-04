@@ -16,4 +16,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findById(Integer qid) {
         return questionMapper.findById(qid);
     }
+
+    @Override
+    public int insertQues(Question question){return questionMapper.insertQues(question);}
 }

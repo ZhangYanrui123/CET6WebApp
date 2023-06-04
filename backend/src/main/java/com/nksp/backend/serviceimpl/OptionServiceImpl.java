@@ -14,5 +14,8 @@ public class OptionServiceImpl implements OptionService {
     public Option findById(Integer oid) {
         return optionMapper.findById(oid);
     }
+
+    @Override
+    public int insertOption(Option option){return optionMapper.insertOption(option);}
 }
 

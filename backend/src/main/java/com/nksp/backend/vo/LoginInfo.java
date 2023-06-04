@@ -1,4 +1,4 @@
-package com.nksp.backend.entity;
+package com.nksp.backend.vo;
 
 import lombok.Data;
 

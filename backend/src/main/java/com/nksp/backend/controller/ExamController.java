@@ -7,10 +7,9 @@ import com.nksp.backend.mapper.ExamMapper;
 import com.nksp.backend.serviceimpl.ExamServiceImpl;
 import com.nksp.backend.serviceimpl.StudentServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
+import com.nksp.backend.vo.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ExamController {
@@ -27,4 +26,14 @@ public class ExamController {
             return ApiResultHandler.buildApiResult(404, "查询的用户不存在", null);
         }
     }
+
+    @PostMapping("/api/exam/add")
+    public ApiResult addExam(@RequestBody Exam params){
+        System.out.println(params);
+        examService.addExam(params);
+        Exam exam = new Exam();
+        exam.setInfo(params);
+        return ApiResultHandler.buildApiResult(200, "请求成功", exam);
+    }
+
 }

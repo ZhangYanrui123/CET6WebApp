@@ -133,27 +133,38 @@
         succCancel: false,
         failCancel: false,
         userInfo: {
-            name : null,
-            id : null
+            uname : 'xuechen',
+            uuid : 1,
+            urole: 0,
         },
-        userData: {suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"1",smajority:"jsjkxyjs",sno:"20xxxxx"},
-        applyData: [{jstate : 1,famount:30},
-        {jstate : 0,famount:25}]
+        userData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
+        sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
+
+        applyData: [
+            {jstate : 1,famount:30},
+            {jstate : 0,famount:25}
+        ]
       }
     },
     created() { //cookies都没加
-        getCookies()
-        getUserData()
-        getApplyData()
+        //this.getCookies()
+        this.getUserData()
+        //this.getApplyData()
     },
     methods: {
         getCookies() {  //获取cookie
             this.userInfo.name = this.$cookies.get("uname")
             this.userInfo.id = this.$cookies.get("uuid")
+            this.userInfo.role = this.$cookies.get("urole")
         },
         getUserData(){
-            this.$axios({url: '/api/score',method: 'post',data: this.userInfo.id}).then(res => {
+            console.log(this.userInfo.uname)
+            console.log(this.userInfo.uuid)
+            this.$axios({
+                url: 'http://127.0.0.1:8081/api/studentData',
+                method: 'post',
+                data: this.userInfo
+            }).then(res => {
                 this.userData = res.data.data
             })
         },

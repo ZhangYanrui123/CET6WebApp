@@ -138,22 +138,20 @@
         editUser:false,
         editPassword:false,
         userInfo: {
-            name : 'xuechen',
-            id : 0,
-            role: 0,
+            uname : 'xuechen',
+            uuid : 1,
+            urole: 0,
         },
-        userData: {uuid:null,suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"2",smajority:"jsjkxyjs",sno:"2011111",ubirth:"2023/6/4",usex:true,},
-        editData: {uuid:null,suniversity : "nku",scollege:"jn",uname:"name",usex:"sex",udoctype:"sfz",udocno:"xxxxxxxxxxxxxxxxxx",
-        sgrade:"20",sclass:"1",smajority:"jsjkxyjs",sno:"2011111",ubirth:"2023/6/4",usex:true,},
+        userData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
+        sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
+        editData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
+        sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
         password:null,
         upwd:null
       }
     },
     created() { //cookies都没加
-        this.getCookies()
-        console.log('vue created')
-        console.log(this.userInfo.name)
+        //this.getCookies()
         this.getUserData()
         this.resetEditData()
     },
@@ -164,7 +162,11 @@
             this.userInfo.role = this.$cookies.get("urole")
         },
         getUserData(){
-            this.$axios({url: 'http://127.0.0.1:8081/api/user',method: 'post',data: this.userInfo}).then(res => {
+            this.$axios({
+                url: 'http://127.0.0.1:8081/api/studentData',
+                method: 'post',
+                data: this.userInfo
+            }).then(res => {
                 this.userData = res.data.data
             })
         },
