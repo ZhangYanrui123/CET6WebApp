@@ -6,7 +6,10 @@ import com.nksp.backend.mapper.JoinMapper;
 import com.nksp.backend.mapper.StudentMapper;
 import com.nksp.backend.service.JoinService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class JoinServiceImpl implements JoinService {
@@ -16,4 +19,7 @@ public class JoinServiceImpl implements JoinService {
     public Join findById(Integer jid) {
         return joinMapper.findById(jid);
     }
+
+    @Override
+    public List<Join> getAllJoin(Integer uuid){return joinMapper.getAllJoin(uuid);}
 }

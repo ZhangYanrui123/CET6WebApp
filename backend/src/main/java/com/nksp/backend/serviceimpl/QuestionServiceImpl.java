@@ -8,6 +8,8 @@ import com.nksp.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
     @Autowired
@@ -19,4 +21,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public int insertQues(Question question){return questionMapper.insertQues(question);}
+
+    @Override
+    public List<Question> getSubQuesList(Integer qid){return questionMapper.getSubQuesList(qid);}
 }

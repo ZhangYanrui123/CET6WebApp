@@ -5,4 +5,6 @@ import com.nksp.backend.entity.Blank;
 
 public interface AnswerService {
     Answer findById(Integer aid);
+
+    int insertAnswer(Answer answer);
 }

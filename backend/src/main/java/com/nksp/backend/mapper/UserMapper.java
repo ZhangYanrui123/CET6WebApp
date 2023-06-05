@@ -1,6 +1,7 @@
 package com.nksp.backend.mapper;
 
 import com.nksp.backend.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -8,4 +9,8 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
     @Select("select * from user where uuid = #{userId}")
     User findById(Integer userId);
+
+    @Select("select * from user where uname = #{uname}")
+    User findByName(String name);
+
 }

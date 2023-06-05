@@ -5,32 +5,32 @@
       <!-- 选择题目类型 -->
       <div class="type-selection">
         <label>
-          <input type="radio" v-model="questionType" value="writing" /> 写作题
+          <input type="radio" v-model="questionRecord.questionType" value="writing" /> 写作题
         </label>
         <label>
-          <input type="radio" v-model="questionType" value="translation" /> 翻译题
+          <input type="radio" v-model="questionRecord.questionType" value="translation" /> 翻译题
         </label>
       </div>
   
     <!-- 显示题目内容 -->
-    <div class="content" v-if="questionContent">
+    <div class="content" v-if="questionRecord.questionContent">
         <!-- 显示题目内容 -->
-        <div class="content" v-if="questionContent">
+        <div class="content" v-if="questionRecord.questionContent">
             <h3 class="section-title">题目内容：</h3>
-            <div class="question-text">{{ questionContent }}</div>
+            <div class="question-text">{{ questionRecord.questionContent }}</div>
         </div>
     </div>
   
       <!-- 显示考生答案 -->
-      <div class="content" v-if="studentAnswer">
+      <div class="content" v-if="questionRecord.studentAnswer">
         <h3 class="section-title">考生答案：</h3>
-        <p class="answer-text">{{ studentAnswer }}</p>
+        <p class="answer-text">{{ questionRecord.studentAnswer }}</p>
       </div>
   
       <!-- 评分表单 -->
-      <div class="score-section" v-if="questionContent && studentAnswer">
+      <div class="score-section" v-if="questionRecord.questionContent && questionRecord.studentAnswer">
         <h3 class="section-title">评分：</h3>
-        <input class="score-input" type="number" v-model="score" min="0" max="100" />
+        <input class="score-input" v-model="score" min="0" max="100" />
         <button class="submit-button" @click="submitScore">提交评分</button>
       </div>
     </div>
@@ -39,46 +39,73 @@
   <script>
 //   import axios from 'axios';
   
-  export default {
+  import * as url from "url";
+
+export default {
     data() {
       return {
-        questionType: '', // 题目类型，'writing'或'translation'
-        questionContent: '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111', // 题目内容
-        studentAnswer: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111', // 考生答案
-        score: 0 // 评分
+        questionRecord:{
+          questionType: 'writing', // 题目类型，'writing'或'translation'
+          questionContent: '', // 题目内容
+          studentAnswer: '', // 考生答案
+        },
+          score: 0.0, // 评分
+        userInfo: {
+            uname : 'xuechen',
+            uuid : 1,
+            urole: 0,
+        },
       };
+    },
+    created() {
+        this.getQuestionAndAnswer()
     },
     methods: {
       // 从后端获取题目内容和考生答案
       getQuestionAndAnswer() {
-        const uid = 123; // 考生的序号，根据实际情况设置
-        axios.get(`/api/question/${uid}?type=${this.questionType}`).then(response => {
-          this.questionContent = response.data.questionContent;
-          this.studentAnswer = response.data.studentAnswer;
+        const rid = 14; // 考生的序号，根据实际情况设置
+        this.$axios({
+            url:"http://127.0.0.1:8081/api/getrecord",
+            method: 'post',
+            contentType: "application/json;charset=UTF-8",
+            data:{rid: rid}
+            }).then(response => {
+                this.questionRecord = response.data.data
         }).catch(error => {
           console.error(error);
         });
       },
       // 提交评分给后端
       submitScore() {
-        const uid = 123; // 考生的序号，根据实际情况设置
-        axios.post(`/api/score/${uid}`, { score: this.score }).then(response => {
+        const rid = 14; // 考生的序号，根据实际情况设置
+          console.log(this.score)
+        this.$axios({
+            url: `http://127.0.0.1:8081/api/score`,
+            method: 'post',
+            data: {
+                uuid: 1,
+                eid: 1,
+                qid: 13,
+                rid: 13,
+                rscore: this.score
+            }
+        }).then(response => {
           console.log('评分提交成功');
         }).catch(error => {
           console.error(error);
         });
       }
     },
-    watch: {
-      questionType() {
-        this.questionContent = '';
-        this.studentAnswer = '';
-  
-        if (this.questionType) {
-          this.getQuestionAndAnswer();
-        }
-      }
-    }
+    // watch: {
+    //   questionType() {
+    //     this.questionContent = '';
+    //     this.studentAnswer = '';
+    //
+    //     if (this.questionType) {
+    //       this.getQuestionAndAnswer();
+    //     }
+    //   }
+    // }
   };
   </script>
   

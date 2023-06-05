@@ -15,4 +15,7 @@ public class AnswerServiceImpl implements AnswerService {
     public Answer findById(Integer aid) {
         return answerMapper.findById(aid);
     }
+
+    @Override
+    public int insertAnswer(Answer answer){return answerMapper.insertAnswer(answer);}
 }

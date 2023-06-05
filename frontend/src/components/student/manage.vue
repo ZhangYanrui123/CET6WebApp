@@ -7,7 +7,7 @@
             <table class="userData">
                 <tr>
                     <td>用户类型：</td>
-                    <td colspan="5"><span>{{this.userData.utype}}</span></td>
+                    <td colspan="5"><span>学生</span></td>
                 </tr>
                 <tr>
                     <td>姓名：</td>
@@ -126,9 +126,6 @@
   </template>
   
   <script>
-  
-  import axios from "axios";
-
   export default {
     data() {
       return {
@@ -142,15 +139,19 @@
             uuid : 1,
             urole: 0,
         },
-        userData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
-        sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
-        editData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
-        sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
+
+        // userData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
+        // sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
+        // editData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
+        // sgrade:null,sclass:null,smajority:null,sno:null,ubirth:null,utype:null},
+        userData: {},
+        editData: {},
         password:null,
         upwd:null
       }
     },
     created() { //cookies都没加
+        //this.getCookies()
         //this.getCookies()
         this.getUserData()
         this.resetEditData()
@@ -179,20 +180,20 @@
             this.$axios({url: '/api/score',method: 'post',data: this.editData}).then(res => {
                 if(res.data.data){
                     getUserData()
-                    success = true
+                    this.success = true
                 }
                 else{
-                    fail = true
+                    this.fail = true
                 }
             })
         },
         passwordEdit(){
             this.$axios({url: '/api/score',method: 'post',data: {uuid:this.userInfo.uuid, upwd:this.upwd, password:this.password}}).then(res => {
                 if(res.data.data){
-                    success = true
+                    this.success = true
                 }
                 else{
-                    fail = true
+                    this.fail = true
                 }
             })
         }

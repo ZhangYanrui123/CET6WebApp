@@ -12,7 +12,8 @@ Vue.use(VueCookies)
 Vue.use(ElementUI) //使用elementUI
 
 
-Vue.config.productionTip = false
+
+Vue.prototype.$axios = axios
 
 Vue.prototype.$axios = axios
 
@@ -22,3 +23,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+

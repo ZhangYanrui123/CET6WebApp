@@ -9,6 +9,8 @@ import com.nksp.backend.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ExamServiceImpl implements ExamService {
     @Autowired
@@ -18,6 +20,9 @@ public class ExamServiceImpl implements ExamService {
     public Exam findById(Integer eid) {
         return examMapper.findById(eid);
     }
+
+    @Override
+    public List<Exam> findByUid(Integer uuid){return examMapper.findByUid(uuid);}
 
     @Override
     public int addExam(Exam exam){return examMapper.addExam(exam);}

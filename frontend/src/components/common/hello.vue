@@ -15,7 +15,7 @@
   </section>
 </template>
 
-// <script>
+<script>
 export default {
   data() {
     return {

@@ -59,12 +59,12 @@ export default {
       this.$router.push({path: '/index'})
     },
     exit() {
-      let role = this.$cookies.get("role")
-      this.$router.push({path:"/"}) //跳转到登录页面
-      this.$cookies.remove("cname") //清除cookie
-      this.$cookies.remove("cid")
-      this.$cookies.remove("role")
-      if(role == 0) {
+      let urole = this.$cookies.get("urole")
+      this.$router.push({path:"/login"}) //跳转到登录页面
+      this.$cookies.remove("uname") //清除cookie
+      this.$cookies.remove("uuid")
+      this.$cookies.remove("urole")
+      if(urole == 0) {
         this.menu.pop()
       }
     }

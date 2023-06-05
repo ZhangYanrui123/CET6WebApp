@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface QuestionMapper {
     @Select("select * from question where qid = #{qid}")
@@ -16,4 +18,7 @@ public interface QuestionMapper {
             "values(#{qtype},#{qdifficulty},#{qstem},#{qnum},#{qbelong})")
     @Options(useGeneratedKeys=true,keyProperty="qid")
     int insertQues(Question question);
+
+    @Select("select * from question where qbelong = #{qid}")
+    List<Question> getSubQuesList(Integer qid);
 }

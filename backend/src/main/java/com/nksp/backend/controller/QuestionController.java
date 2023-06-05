@@ -42,6 +42,33 @@ public class QuestionController {
         }
     }
 
+    @PostMapping("/api/getq")
+    public ApiResult getQuestionById(@RequestBody Map<String, String> q) {
+        Question res = questionService.findById(Integer.parseInt(q.get("qid")));
+        if (res != null) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的用户不存在", null);
+        }
+    }
+
+    @PostMapping("/api/getsubqlist")
+    public ApiResult getSubQuesList(@RequestBody Map<String, String> q) {
+        List<Question> res = questionService.getSubQuesList(Integer.parseInt(q.get("qid")));
+        if (res != null) {
+            List<Integer> subqids = new ArrayList<Integer>();
+            for(Question r : res){
+                subqids.add(r.getQid());
+            }
+            System.out.println(subqids);
+
+            return ApiResultHandler.buildApiResult(200, "请求成功", subqids);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的用户不存在", null);
+        }
+    }
+
     @PostMapping("/api/question/add")
     public ApiResult addQuestion(@RequestBody QuestionData params){
         // 1. get stem
@@ -80,7 +107,7 @@ public class QuestionController {
             System.out.println("correctAnswer: " + correctAnswer);
 
             Question subquestion = new Question();
-            subquestion.setQuestion(4, questionText, 1, questionId);
+            subquestion.setQuestion(4, questionText, 0, questionId);
             questionService.insertQues(subquestion);
             int subQuestionId = subquestion.getQid();
 

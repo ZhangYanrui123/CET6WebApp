@@ -7,6 +7,7 @@ import com.nksp.backend.entity.User;
 import com.nksp.backend.serviceimpl.StudentServiceImpl;
 import com.nksp.backend.serviceimpl.UserServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
+import com.nksp.backend.vo.LoginInfo2;
 import com.nksp.backend.vo.ManageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,18 @@ public class UserController {
         if (res != null) {
             System.out.println(res);
             return ApiResultHandler.buildApiResult(200,"请求成功",res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);
+        }
+    }
+
+    @PostMapping("/api/login")
+    public ApiResult findById(@RequestBody LoginInfo2 params) {
+        User res = userService.findByName(params.getUname());
+        System.out.println(params.getUname());
+        if (params.getUpwd().equals(res.getUpwd())) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200,"请求成功", res);
         } else {
             return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);
         }
@@ -44,4 +57,9 @@ public class UserController {
             return ApiResultHandler.buildApiResult(404,"查询的用户不存在",null);
         }
     }
+
+//    @PostMapping("/api/register")
+//    public ApiResult userRegister(@RequestBody User user){
+//
+//    }
 }

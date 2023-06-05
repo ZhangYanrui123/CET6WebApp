@@ -3,15 +3,15 @@
     <ul class="top">
       <span class="order">考试列表</span> <!--可以添加考试查询，按照分类-->
     </ul>
-    <ul class="paper" v-loading="loading">
+    <ul class="paper">
       <li class="item" v-for="(item,index) in pagination.records" :key="index">
         <div class="info">
           考试类型：
           <span v-show="item.esubject == 1">
-            六级口语
+            六级笔试
           </span>
           <span v-show="item.esubject == 2">
-            六级笔试
+            六级口语
           </span>&nbsp;&nbsp;&nbsp;&nbsp;
           开始时间：<span>{{item.ebegin}}</span>&nbsp;&nbsp;结束时间：<span>{{item.eend}}</span><br/>
           考试状态：
@@ -32,7 +32,7 @@
           </span>&nbsp;&nbsp;&nbsp;&nbsp;
           考场信息：
           <span v-show="item.estate < 2">还未分配</span>
-          <span class = "classroom" v-show="item.estate >= 2" @click="open = true;searchClassroom(item.cid)">
+          <span class = "classroom" v-show="item.estate >= 2" @click="open = true;this.searchClassroom(item.cid)">
             点击查看
           </span><br/>
           <span v-show="item.estate == 3">
@@ -66,7 +66,6 @@
 export default {
   data() {
     return {
-      loading: false,
       open: false,
       pagination: { //分页后的考试信息
         current: 1, //当前页
@@ -75,23 +74,30 @@ export default {
         records: [{esubject : 1,ebegin : 2,eend : 3,estate : 3},{esubject : 2,ebegin : 2,eend : 3,estate : 3}]
       },
       classroom:{
-        cuniversity: 1,
-        cclassroon: 2,
-        copen: 3,
-        cclose: 4
-      }
+          cuniversity: '南开大学',
+          cclassroon: '公教B402',
+          copen: '2023-06-05 10:22:33',
+          cclose: '2023-06-05 12:14:09'
+      },
+      uuid: null
     }
   },
   created() {
-    //this.getExamInfo()
-    //this.loading = true
+    this.getCookies()
+    this.getExamInfo()
   },
   methods: {
-    //获取当前所有考试信息
+    getCookies() {  //获取cookie
+            this.uuid = this.$cookies.get("uuid")
+    },
+    //获取学生考试信息
     getExamInfo() {
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
+      this.$axios({url: 'http://127.0.0.1:8081/api/getallexam',method: 'post',data: {
+        uuid:this.uuid,
+        // current: this.pagination.current,
+        // size: this.pagination.size
+      }}).then(res => {
         this.pagination.records = res.data.data
-        this.loading = false
       }).catch(error => {
         console.log(error)
       })
@@ -111,8 +117,8 @@ export default {
       this.$router.push({path: '/exam', query: {eid: eid}})
     }
   },
-  searchClassroom(cid) { 
-    this.$axios(`/api/exams/${cid}`).then(res => {
+  searchClassroom(cid) {
+    this.$axios(`http://127.0.0.1:8081/api/classroom/${cid}`).then(res => {
         this.classroom = res.data.data
       }).catch(error => {
         console.log(error)

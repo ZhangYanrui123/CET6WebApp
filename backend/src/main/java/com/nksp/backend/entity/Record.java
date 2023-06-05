@@ -6,7 +6,8 @@ import lombok.Data;
 public class Record {
     int rid;
     int uuid;
-    String ranswer ;
     int eid;
+    int qid;
+    String ranswer ;
     float rscore;
 }

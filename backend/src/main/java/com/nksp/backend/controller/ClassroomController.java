@@ -16,8 +16,8 @@ public class ClassroomController {
     private ClassroomServiceImpl classroomService;
 
     @GetMapping("/api/classroom/{cid}")
-    public ApiResult findById(@PathVariable("cid") Integer userId) {
-        Classroom res = classroomService.findById(userId);
+    public ApiResult findById(@PathVariable("cid") Integer cid) {
+        Classroom res = classroomService.findById(cid);
         if (res != null) {
             System.out.println(res);
             return ApiResultHandler.buildApiResult(200, "请求成功", res);

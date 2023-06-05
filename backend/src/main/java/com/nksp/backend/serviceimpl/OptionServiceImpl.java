@@ -6,6 +6,8 @@ import com.nksp.backend.service.OptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OptionServiceImpl implements OptionService {
     @Autowired
@@ -17,5 +19,8 @@ public class OptionServiceImpl implements OptionService {
 
     @Override
     public int insertOption(Option option){return optionMapper.insertOption(option);}
+
+    @Override
+    public List<Option> getOptionList(Integer qid){return optionMapper.getOptionList(qid);}
 }
 

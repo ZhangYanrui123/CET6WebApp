@@ -12,6 +12,7 @@ public class Exam {
     Date eend;
     int esubject;
     int estate;
+    int pid;
 
     public void setInfo(Exam exam){
         this.eid = exam.eid;
@@ -20,5 +21,6 @@ public class Exam {
         this.eend = exam.eend;
         this.esubject = exam.esubject;
         this.estate = exam.estate;
+        this.pid = exam.pid;
     }
 }

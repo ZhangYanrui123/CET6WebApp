@@ -27,8 +27,8 @@
       }
     },
     created() { //cookies都没加
-        nowSubject = this.$route.query.eid
-        getCookies()
+        this.nowSubject = this.$route.query.eid
+        this.getCookies()
         // getPaymentMethod() 如果有的话，获取付款二维码
     },
     methods: {
