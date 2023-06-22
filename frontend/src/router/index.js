@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 
 // Z: admin and home page
 import Layout from "@/views/layout/Index.vue"
-import zyrLogin from "@/views/login/Index.vue"
-import Login from "@/components/common/login.vue";
+import Login from "@/views/login/Index.vue"
+// import Login from "@/components/common/login.vue";
 import Home from "@/views/Home.vue"
 import About from "@/views/About.vue";
 
@@ -23,8 +23,8 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'zyrlogin',
-    component: zyrLogin
+    name: 'login',
+    component: Login
   },
 
   {
@@ -40,14 +40,14 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // },
-  {
-    path: '/login',
-    name: 'login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('@/components/common/login.vue')
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import('@/components/common/login.vue')
+  // },
   {path:'/exam',name: 'exam',component: () => import('@/components/student//exam.vue')},
   {path:'/payment',name: 'payment',component: () => import('@/components/student//payment.vue')},
   {path:'/register',name: 'register',component: () => import('@/components/common//register.vue')},
