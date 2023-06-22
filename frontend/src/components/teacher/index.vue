@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import header from '@/components/common/header'
-import mainLeft from '@/components/common/mainLeft'
-import navigator from '@/components/common/navigator'
+import header from '@/components/common/header.vue'
+import mainLeft from '@/components/common/mainLeft.vue'
+import navigator from '@/components/common/navigator.vue'
 export default {
   components:{
     header1: header,

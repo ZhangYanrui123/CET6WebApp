@@ -41,6 +41,7 @@
                     <td class = "double"><span v-if="this.userData">{{this.userData.sno}}</span></td>
                 </tr>
             </table>
+            <template v-if = "this.applyData.length!=0">
             <table class="applyData" border = "1">
                 <tr>
                     <td>科目</td>
@@ -81,31 +82,32 @@
                     </td>
                 </tr>
             </table>
+            </template>
         </div>
         <el-dialog title='提交报名信息' center :visible.sync='this.toApply'>
-            确定要报名<span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试吗？<br/>
+            确定要报名<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试吗？<br/>
             <el-button @click = "this.toApply = false;apply()">确定</el-button>
             <el-button @click = "this.toApply = false">取消</el-button>
         </el-dialog>
         <el-dialog title='报名成功' center :visible.sync='this.succApply'>
-            您已成功报名<span v-if = "applyData[nowExam].eid&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试！<br/>
+            您已成功报名<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试！<br/>
             <el-button @click = "this.succApply = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='报名失败' center :visible.sync='this.failApply'>
-            报名<span v-if = "applyData[nowExam].eid&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试失败！<br/>
+            报名<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试失败！<br/>
             <el-button @click = "this.failApply = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='撤销报名' center :visible.sync='this.toCancel'>
-            确定要撤销对<span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试的报名吗？<br/>
+            确定要撤销对<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试的报名吗？<br/>
             <el-button @click = "this.toCancel = false;Cancel()">确定</el-button>
             <el-button @click = "this.toCancel = false">取消</el-button>
         </el-dialog>
         <el-dialog title='撤销成功' center :visible.sync='this.succCancel'>
-            您已成功撤销对<span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试的报名！<br/>
+            您已成功撤销对<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试的报名！<br/>
             <el-button @click = "this.succCancel = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='撤销失败' center :visible.sync='this.failCancel'>
-            对<span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].eid == 2">六级笔试</span>考试的报名撤销失败！<br/>
+            对<span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 1">六级口语</span><span v-if = "applyData[nowExam]&&applyData[nowExam].esubject == 2">六级笔试</span>考试的报名撤销失败！<br/>
             <el-button @click = "this.failCancel = false">关闭</el-button>
         </el-dialog>
         <el-dialog title='付款成功' center :visible.sync='this.succPay'>
@@ -165,6 +167,7 @@
         },
         getApplyData(){
             //获取用户可报名信息，需要考试eid，科目，开始时间，结束时间，报名状态和金额，
+            // eid、esubject、ebegin、eend、jstate、famount
             this.$axios({
                 url: 'http://127.0.0.1:8081/api/getjoin',
                 method: 'post',

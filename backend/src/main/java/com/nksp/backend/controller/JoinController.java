@@ -46,7 +46,9 @@ public class JoinController {
         for(Join join : joinlist) {
             Exam exam = examService.findById(join.getEid());
             // compareTo:如果调用者在参数之前，则小于0
+            System.out.println("survivor");
             if(new Date().compareTo(exam.getEbegin())<0){
+                System.out.println("survivor after");
                 Fee fee = feeService.findById(join.getFid());
                 JoinData joinData = new JoinData();
                 joinData.setInfo(exam.getEid(), exam.getEsubject(), exam.getEbegin(), exam.getEend(), join.getJstate(), fee.getFamount());
@@ -54,6 +56,7 @@ public class JoinController {
             }
         }
         if (res != null) {
+            System.out.println("---res!");
             System.out.println(res);
             return ApiResultHandler.buildApiResult(200, "请求成功", res);
         } else {

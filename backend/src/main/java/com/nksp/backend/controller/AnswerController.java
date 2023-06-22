@@ -100,7 +100,7 @@ public class AnswerController {
         Grade grade = new Grade();
         grade.setInfo(uuid, eid, objFinal, subFinal);
         int res = gradeService.updateSOScore(grade);
-        System.out.println("sss");
+
         System.out.println(objFinal);
         System.out.println(subFinal);
         if(ret > 0 && res > 0){
