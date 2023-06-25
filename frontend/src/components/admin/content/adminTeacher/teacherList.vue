@@ -1,13 +1,13 @@
 <template>
-    <h2>登录界面</h2>
+<h2>老师列表</h2>
 </template>
 
 <script>
 export default {
-
+    name: "teacherList"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

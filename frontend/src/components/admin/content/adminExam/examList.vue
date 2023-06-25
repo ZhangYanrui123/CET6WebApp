@@ -1,13 +1,13 @@
 <template>
-  <h2>布局界面</h2>
+    <h2>考场列表</h2>
 </template>
 
 <script>
 export default {
-
+    name: "examList"
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
