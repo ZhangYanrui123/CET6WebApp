@@ -17,4 +17,8 @@ public class ClassroomServiceImpl implements ClassroomService {
         return classroomMapper.findById(cid);
     }
 
+    @Override
+    public Classroom findByName(String name){return classroomMapper.findByName(name);}
+    @Override
+    public int addClassromm(Classroom classroom){return classroomMapper.addClassromm(classroom);}
 }

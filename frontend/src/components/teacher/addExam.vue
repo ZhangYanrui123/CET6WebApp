@@ -35,7 +35,7 @@
       </el-form-item>
       <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="考试科目">
-        <el-select v-model="form.subject">
+        <el-select v-model="form.esubject">
           <el-option label="六级笔试" value="1"></el-option>
           <el-option label="六级口语" value="2"></el-option>
         </el-select>
@@ -93,7 +93,7 @@ export default {
     onSubmit() {
 
       this.$axios({
-          url: 'http://127.0.0.1:8081/api/exam/add',
+          url: 'http://127.0.0.1:8081/api/exam/addExam',
           method: 'post',
           data: this.form
       }).then(res => {

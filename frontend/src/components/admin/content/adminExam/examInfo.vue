@@ -8,11 +8,21 @@
             <el-form-item label="教室">
                 <el-input v-model="form.cclassroom"></el-input>
             </el-form-item>
-            <el-form-item label="开放时间">
-                <el-input v-model="form.copen"></el-input>
+            <el-form-item label="开始时间">
+                <el-date-picker
+                    v-model="form.copen"
+                    type="datetime"
+                    placeholder="选择日期和时刻"
+                    style="width: 100%;"
+                ></el-date-picker>
             </el-form-item>
-            <el-form-item label="关闭时间">
-                <el-input v-model="form.cclose"></el-input>
+            <el-form-item label="结束时间">
+                <el-date-picker
+                    v-model="form.cclose"
+                    type="datetime"
+                    placeholder="选择日期和时刻"
+                    style="width: 100%;"
+                ></el-date-picker>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit()">立即创建</el-button>
@@ -38,7 +48,7 @@ export default {
     methods: {
         onSubmit() { //数据提交
             this.$axios({
-                url: 'http://127.0.0.1:8081/api/exam/addExam',
+                url: 'http://127.0.0.1:8081/api/admin/addClassroom',
                 method: 'post',
                 data: {
                     ...this.form

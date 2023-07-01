@@ -5,4 +5,8 @@ import com.nksp.backend.entity.Student;
 
 public interface ClassroomService {
     Classroom findById(Integer cid);
+
+    Classroom findByName(String name);
+
+    int addClassromm(Classroom classroom);
 }
