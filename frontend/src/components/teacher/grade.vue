@@ -37,6 +37,7 @@
       <h3 class="section-title">评分：</h3>
       <input class="score-input" v-model="recordsList[curIdx].rscore" min="0" max="100" />
       <button class="submit-button" @click="submitScore">提交评分</button>
+      <button class="next-button"@click="showLastData">上一位</button>
       <button class="next-button"@click="showNextData">下一位</button>
     </div>
     <div class="score-section" v-else>
@@ -85,6 +86,13 @@ export default {
           this.curIdx++;
           if(this.curIdx>=this.recordsList.length){
               this.isVisible = false;
+          }
+      },
+      showLastData(){
+          this.curIdx--;
+          if(this.curIdx<0){
+              this.curIdx++;
+              this.$message.info("到头了");
           }
       },
       relax(){

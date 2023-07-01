@@ -43,6 +43,7 @@ public class GradeController {
             Exam exam = examService.findById(eid);
             ScoreTable scoreTable = new ScoreTable();
             scoreTable.setInfo(exam.getEsubject(), exam.getEbegin(), exam.getEend(), grade.getGdictation(), grade.getGwriting());
+            System.out.println(scoreTable);
             res.add(scoreTable);
         }
         if (res != null) {

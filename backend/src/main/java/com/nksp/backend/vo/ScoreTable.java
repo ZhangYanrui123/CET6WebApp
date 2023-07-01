@@ -20,6 +20,9 @@ public class ScoreTable {
         this.eend = TimeHelper.getTime(eend);
         this.gdictation = gdictation;
         this.gwriting = gwriting;
-        this.gtotal = gdictation + gwriting;
+        if(gwriting < 0)
+            this.gtotal = 0;
+        else
+            this.gtotal = gdictation + gwriting;
     }
 }

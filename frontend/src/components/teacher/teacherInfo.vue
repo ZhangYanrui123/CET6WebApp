@@ -91,10 +91,10 @@
       return {
         teacher: {
           id: '0001', // 在这里设置教师ID的初始值
-          university: 'nku',
-          college: 'cs',
-          employeeId: '工号',
-          title: '职称'
+          university: '南开大学',
+          college: '计算机学院',
+          employeeId: '1111111',
+          title: '辅导员'
         },
         isEditing: {
           university: false,

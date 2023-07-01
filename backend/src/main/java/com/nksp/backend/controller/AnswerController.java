@@ -109,7 +109,7 @@ public class AnswerController {
         System.out.println(uuid+ "," + eid);
         List<Record> records = recordService.findByUEid(uuid, eid);
         Record record = records.get(0);
-        float subFinal = record.getRscore();
+        float subFinal = -1;
         Grade grade = new Grade();
         grade.setInfo(uuid, eid, objFinal, subFinal);
         grade.setGtotal(0);
