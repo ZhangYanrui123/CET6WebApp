@@ -23,6 +23,6 @@ a {
 }
 #app {
   font-family: "Microsoft YaHei", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  background-color: #eee;
+  background-color: rgba(238, 238, 238, 0.57);
 }
 </style>

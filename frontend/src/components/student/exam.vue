@@ -4,8 +4,8 @@
         <div class="top">
             <span>全卷共<b class = "count">{{this.totalcount}}</b>题</span>
             <span>剩余时间：<b>{{Math.floor(seconds/3600)}}</b>小时<b>{{Math.floor(seconds/60)%60}}</b>分钟<b>{{seconds%60}}</b>秒</span>
-            <el-button @click="getOptions">点我获取题目选项</el-button>
-            <el-button @click="getExamDataSub">点我获取主观题目</el-button>
+<!--            <el-button @click="getOptions">点我获取题目选项</el-button>-->
+<!--            <el-button @click="getExamDataSub">点我获取主观题目</el-button>-->
         </div>
         <div class="answerArea">
             <div>请考生在规定时间内完成所有题目，并点击提交</div>
@@ -160,7 +160,14 @@
                 }
             })
           })
-          return 1
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            // 在这里调用 getOptions() 和 getExamDataSub() 函数
+            this.getOptions();
+            this.getExamDataSub();
+            resolve(1);
+          }, 1000);
+        });
       },
         getExamDataSub() { //获取当前试卷所有信息
             this.eid = this.$route.query.eid //获取路由传递过来的试卷编号

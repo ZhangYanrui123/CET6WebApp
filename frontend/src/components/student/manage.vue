@@ -216,7 +216,7 @@
   .manage {
     width: 90%;
     margin: 0 auto;
-    background-color: #dda6cb17;
+    background-color: rgba(209, 166, 221, 0.09);
   }
   .manage .tables{
     display: flex;

@@ -1,4 +1,5 @@
 <template>
+    <div class="application-container">
     <div class="application">
         <ul class="top">
             <span class="order">报名信息</span> 
@@ -12,9 +13,6 @@
                 <tr>
                     <td>所属学院：</td>
                     <td colspan="5"><span v-if="this.userData">{{this.userData.scollege}}</span></td>
-                </tr>
-                <tr>
-                    <td colspan="6"></td>
                 </tr>
                 <tr>
                     <td>姓名：</td>
@@ -114,6 +112,7 @@
             您已成功付款！
             <el-button @click = "this.succPay = false">关闭</el-button>
         </el-dialog>
+    </div>
     </div>
   </template>
   
@@ -216,46 +215,55 @@
     }
   }
   </script>
-  
-  <style lang="less" scoped>
-  ul{
-    list-style-type:none
-  }
-  .application .top {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
-    display: flex;
-  }
-  .application .top .order {
-    margin: 20px;
-  }
-  .application {
-    width: 90%;
-    height: 530px;
-    margin: 0 auto;
-    background-color: #dda6cb17;
-  }
-  .application .tables{
-    display: flex;
-    flex-direction:column;
-    align-items: center; 
-    justify-content: center;
-  }
-  .application .tables table{
-    border-collapse: collapse;
-  }
-  .tables * {
-  margin: 20px 0;
+
+<style lang="less" scoped>
+ul {
+  list-style-type: none;
 }
-  .applyData{
-      width: 100%;
-  }
-  .application .tables td{
-    height : 30px;
-    width : 120px;
-  }
-  .application .tables .double{
-    width : 240px;
-  }
-  </style>
+
+.application .top {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  display: flex;
+}
+.application .top .order {
+  margin: 20px;
+}
+.application {
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgba(209, 166, 221, 0.09);
+  padding: 20px;
+}
+.application .tables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.application .tables table {
+  border-collapse: collapse; /* 添加此行代码 */
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.tables * {
+  margin: 20px 0;
+  border-left: none;
+  border-right: none;
+}
+.applyData {
+  width: 100%;
+}
+.application .tables td {
+  height: 50px;
+  width: 120px;
+  border-top: 1px solid #ada5a54f;
+  border-bottom: 1px solid #ada5a54f;
+}
+.application .tables .double {
+  width: 240px;
+}
+</style>
+
   
