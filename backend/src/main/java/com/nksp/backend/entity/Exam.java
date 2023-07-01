@@ -24,7 +24,7 @@ public class Exam {
         this.pid = exam.pid;
     }
 
-    public Exam() {
+    public Exam(){
     }
 
     public Exam(int eid, int cid, Date ebegin, Date eend, int esubject, int estate, int pid) {
