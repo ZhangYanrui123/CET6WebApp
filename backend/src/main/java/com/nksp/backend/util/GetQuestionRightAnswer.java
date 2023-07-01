@@ -9,7 +9,6 @@ import java.util.List;
 public class GetQuestionRightAnswer {
     public static String getAnswer(Question question, int qid, OptionServiceImpl optionService){
         // 默认是一个题，没有子问题
-        System.out.println("mytools: getAnswer");
         System.out.println(qid);
         System.out.println(question);
         List<Option> optionList = optionService.getOptionList(qid);

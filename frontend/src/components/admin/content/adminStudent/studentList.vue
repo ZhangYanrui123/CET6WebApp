@@ -12,15 +12,16 @@
             <el-table-column prop="sclass" label="班级" width="120"></el-table-column>
             <el-table-column prop="sgrade" label="年级" width="120"></el-table-column>
             <el-table-column label="操作" width="120">
-                <template v-slot:scope>
-                    <el-button
+                <template slot-scope="scope">
+                    <span><el-button
                         size="mini"
                         @click="checkGrade(scope.$index, scope.row)"
-                        >编辑</el-button>
-                    <el-button
+                    >编辑</el-button></span>
+                    <span><el-button
                         size="mini"
                         type="danger"
-                        @click="deleteById(scope.$index, scope.row)">删除</el-button>
+                        @click="deleteById(scope.$index, scope.row)"
+                    >删除</el-button></span>
                 </template>
             </el-table-column>
         </el-table>

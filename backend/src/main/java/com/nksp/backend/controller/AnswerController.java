@@ -88,7 +88,7 @@ public class AnswerController {
         }
 
         // 总curQcnt，对right，总分objScore，可以计算出客观题的正确率，从而简单计算得分
-        float objFinal = right * curQcnt / objScore;
+        float objFinal = right / curQcnt * objScore;
 
         // 3. 查Record，获取主观题得分，并和客观题得分一起写入Grade表
         int uuid = answer.getUuid();

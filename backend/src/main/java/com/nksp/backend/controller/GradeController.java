@@ -49,7 +49,7 @@ public class GradeController {
             System.out.println(res);
             return ApiResultHandler.buildApiResult(200, "请求成功", res);
         } else {
-            return ApiResultHandler.buildApiResult(404, "查询的用户不存在", null);
+            return ApiResultHandler.buildApiResult(404, "查询的总分不存在", null);
         }
     }
 }

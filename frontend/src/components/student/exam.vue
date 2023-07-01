@@ -44,8 +44,8 @@
         toCommit: false,
         seconds: 60, //考试剩余时间
         user: {
-            uname : null,
-            uuid : null
+            uname : this.$cookies.get("uname"),
+            uuid : this.$cookies.get("uuid")
         },
         eid: null,
         pid:null,

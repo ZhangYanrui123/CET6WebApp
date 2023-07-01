@@ -6,10 +6,10 @@
           <div class="type">
             考试类型：
             <span v-show="item.esubject == 1">
-              六级笔试
+              六级口语
             </span>
             <span v-show="item.esubject == 2">
-              六级口语
+              六级笔试
             </span>
           </div>
           <div class="time">
@@ -121,6 +121,7 @@ export default {
       })
           .then((res) => {
             this.pagination.records = res.data.data;
+            console.log(this.pagination.records)
           })
           .catch((error) => {
             console.log(error);

@@ -8,7 +8,7 @@
                 <li><router-link to="/scoreTable">查看成绩</router-link></li>
                 <li><router-link to="/manage">管理信息</router-link></li>
                 <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
-                    <a href="javascript:;">xuechen</a>
+                    <a href="javascript:;">{{this.uname}}</a>
                     <div class="ex" v-if="flag">
                         <p class="exit" @click="exit()">退出</p>
                     </div>
@@ -26,7 +26,7 @@
     data() {
       return {
         flag: false,
-        uname: null
+        uname: this.$cookies.get("uname")
       }
     },
     created() {

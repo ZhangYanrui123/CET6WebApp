@@ -41,7 +41,7 @@
           current: 1, //当前页
           total: null, //记录条数
           size: 6, //每页条数
-          records: [{esubject : 1,ebegin : 2,eend : 3,gtotal : 100},{esubject : 2,ebegin : 2,eend : 3,gtotal : 50}]
+          records: [{esubject : 2,ebegin : 2,eend : 3,gtotal : 100},{esubject : 1,ebegin : 2,eend : 3,gtotal : 50}]
         },
         uuid: null
       }

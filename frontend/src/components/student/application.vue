@@ -133,9 +133,9 @@
         succPay:false,
         failPay:false,
         userInfo: {
-            uname : 'xuechen',
-            uuid : 1,
-            urole: 0,
+            uname : this.$cookies.get("uname"),
+            uuid : this.$cookies.get("uuid"),
+            urole: this.$cookies.get("urole"),
         },
         userData: {},
         applyData: [
@@ -145,15 +145,16 @@
       }
     },
     created() { //cookies都没加
-        //this.getCookies()
-        this.getUserData()
-       this.getApplyData()
+        this.getCookies()
+        this.getApplyData()
     },
     methods: {
         getCookies() {  //获取cookie
             this.userInfo.name = this.$cookies.get("uname")
             this.userInfo.id = this.$cookies.get("uuid")
             this.userInfo.role = this.$cookies.get("urole")
+            console.log(this.userInfo)
+            this.getUserData()
         },
         getUserData(){
             this.$axios({
@@ -175,30 +176,30 @@
                 this.applyData = res.data.data
             })
         },
-        // apply(){
-        //     //提交用户报名信息，包含id和eid
-        //     this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
-        //         if(res.data.data){
-        //             getApplyData()
-        //             this.succApply = true
-        //         }
-        //         else{
-        //             this.failApply = true
-        //         }
-        //     })
-        // },
-        // cancel(){
-        //     //提交用户撤销报名信息，包含id和eid
-        //     this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
-        //         if(res.data.data){
-        //             getApplyData()
-        //             this.succCancel = true
-        //         }
-        //         else{
-        //             this.failCancel = true
-        //         }
-        //     })
-        // },
+        apply(){
+            //提交用户报名信息，包含id和eid
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
+                if(res.data.data){
+                    getApplyData()
+                    this.succApply = true
+                }
+                else{
+                    this.failApply = true
+                }
+            })
+        },
+        cancel(){
+            //提交用户撤销报名信息，包含id和eid
+            this.$axios({url: '/api/score',method: 'post',data: {uuid:this.user.id, eid:this.applyData[nowExam].eid}}).then(res => {
+                if(res.data.data){
+                    getApplyData()
+                    this.succCancel = true
+                }
+                else{
+                    this.failCancel = true
+                }
+            })
+        },
         pay(){
             //进入交费页面
             this.$router.push({path: '/payment', query: {eid:this.applyData[this.nowExam]&&this.applyData[this.nowExam].eid, uuid:this.userInfo.uuid}})

@@ -135,9 +135,9 @@
         editUser:false,
         editPassword:false,
         userInfo: {
-            uname : 'xuechen',
-            uuid : 1,
-            urole: 0,
+            uname : this.$cookies.get("uname"),
+            uuid : this.$cookies.get("uuid"),
+            urole: this.$cookies.get("urole"),
         },
 
         // userData: {uuid:null,suniversity : null,scollege:null,uname:null,usex:null,udoctype:null,udocno:null,
@@ -151,9 +151,7 @@
       }
     },
     created() { //cookies都没加
-        //this.getCookies()
-        //this.getCookies()
-        this.getUserData()
+        this.getCookies()
         this.resetEditData()
     },
     methods: {
@@ -161,6 +159,8 @@
             this.userInfo.name = this.$cookies.get("uname")
             this.userInfo.id = this.$cookies.get("uuid")
             this.userInfo.role = this.$cookies.get("urole")
+            console.log(this.userInfo)
+            this.getUserData()
         },
         getUserData(){
             this.$axios({
