@@ -91,7 +91,7 @@ public class RecordController {
         record.setRscore(recordData.getRscore());
         int res = recordService.updateRecord(record);
         System.out.println(record);
-        Grade grade = new Grade();
+        Grade grade = gradeService.findByUidEid(record.getUuid(), record.getEid());
         // 更新主观题分数到grade表
         grade.setSubInfo(record.getUuid(), record.getEid(), record.getRscore());
         int ret = gradeService.updateSubScore(grade);

@@ -2,11 +2,9 @@ package com.nksp.backend.controller;
 
 import com.nksp.backend.entity.*;
 import com.nksp.backend.mapper.ExamMapper;
-import com.nksp.backend.serviceimpl.ClassroomServiceImpl;
-import com.nksp.backend.serviceimpl.ExamServiceImpl;
-import com.nksp.backend.serviceimpl.JoinServiceImpl;
-import com.nksp.backend.serviceimpl.StudentServiceImpl;
+import com.nksp.backend.serviceimpl.*;
 import com.nksp.backend.util.ApiResultHandler;
+import com.nksp.backend.vo.Eid;
 import com.nksp.backend.vo.ExamInfo;
 import com.nksp.backend.vo.AddExam;
 import com.nksp.backend.vo.LoginInfo;
@@ -27,6 +25,9 @@ public class ExamController {
 
     @Autowired
     private ClassroomServiceImpl classroomService;
+
+    @Autowired
+    private PaperServiceImpl paperService;
 
     @GetMapping("/api/examination/{eid}")
     public ApiResult findById(@PathVariable("eid") Integer userId) {
@@ -84,12 +85,31 @@ public class ExamController {
     public ApiResult addExam(@RequestBody AddExam params){
         System.out.println(params);
         Classroom classroom = classroomService.findByName(params.getCname());
-        Exam exam = new Exam(classroom.getCid(), params.getEbegin(),params.getEend(),params.getEsubject(),1, 1);
+
+        int res = paperService.insertPaper(new Paper());
+        Paper paper = paperService.findMaxId(); // 刚刚插入的
+
+        Exam exam = new Exam(classroom.getCid(), params.getEbegin(),params.getEend(),params.getEsubject(),1, paper.getPid());
         examService.addExam(exam);
-        System.out.println(exam);
-//        Exam exam = new Exam();
-//        exam.setInfo(params);
-        return ApiResultHandler.buildApiResult(200, "请求成功", exam);
+
+        if (exam != null && res > 0) {
+            System.out.println(exam);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的考试不存在", null);
+        }
+    }
+
+    @PostMapping("/api/exam/deleteExam")
+    public ApiResult deleteExam(@RequestBody Eid eid){
+        System.out.println(eid.getEid());
+        Integer res = examService.deleteById(eid.getEid());
+        if (res != null) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "删除失败", null);
+        }
     }
 
     @PostMapping("/api/exam/getAllExams")
@@ -100,7 +120,7 @@ public class ExamController {
             ExamInfo ei = new ExamInfo();
             Classroom cr = classroomService.findById(e.getCid());
             if(cr == null)continue;
-            ei.setInfo(cr.getCclassroom(), e.getEbegin(), e.getEend(), e.getEsubject());
+            ei.setInfo(e.getEid(), cr.getCclassroom(), e.getEbegin(), e.getEend(), e.getEsubject());
             res.add(ei);
         }
         if (res != null) {

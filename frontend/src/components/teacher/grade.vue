@@ -55,15 +55,15 @@ export default {
       return {
         recordsList:[{
           rid: 0,
-          ranswer:"default answer",   // 考生答案
+          ranswer:"目前没有待批阅试题",   // 考生答案
           qtype: "6",     // 5:traslation, 6:writing
-          qstem: "default qstem",    // 题目内容
+          qstem: "目前没有待批阅试题",    // 题目内容
           rscore: 0.0,   // 评分
           },{
             rid: 0,
-            ranswer:"default answer2",   // 考生答案
-            qtype: "6",     // 5:traslation, 6:writing
-            qstem: "default qstem2",    // 题目内容
+            ranswer:"目前没有待批阅试题",   // 考生答案
+            qtype: "5 ",     // 5:traslation, 6:writing
+            qstem: "目前没有待批阅试题",    // 题目内容
             rscore: 0.0,   // 评分
         }
         ],

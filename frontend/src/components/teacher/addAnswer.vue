@@ -13,9 +13,11 @@
               <span v-else>{{ scope.row.esubject }}</span>
           </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="200">
+      <el-table-column fixed="right" label="操作" align="center" width="280">
         <template slot-scope="scope">
-          <el-button @click="add(scope.row.paperId,scope.row.source)" type="primary" size="small">编辑考卷</el-button>
+          <el-button @click="add(scope.row.eid)" type="primary" size="small">编辑考卷</el-button>
+          <el-button @click="del(scope.row.eid)" type="danger" size="small">删除考试</el-button>
+          <el-button @click="check(scope.row.eid)" type="warning" size="small">查看考卷</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -78,6 +80,7 @@ export default {
       this.$axios.post(`http://127.0.0.1:8081/api/exam/getAllExams`)
           .then(res => {
           this.pagination.records = res.data.data;
+          console.log(this.pagination.records)
           this.pagination.records.forEach(record => {
               record.ebegin = this.dateTransfer(record.ebegin);
               record.eend = this.dateTransfer(record.eend);
@@ -95,8 +98,26 @@ export default {
       this.pagination.current = val
       this.getExamInfo()
     },
-    add(paperId,source) { //增加题库
-      this.$router.push({path:'/addAnswerChildren',query: {paperId: paperId,subject:source}})
+    add(eid) { // 增加题库
+      this.$router.push({path:'/addAnswerChildren',query: {eid: eid}})
+    },
+    check(eid) { // 查看题库
+        this.$router.push({path:'/viewExam',query: {eid: eid}})
+    },
+    del(eid) { // 删除考试
+        console.log(eid)
+        this.$axios.post(`http://127.0.0.1:8081/api/exam/deleteExam`,{
+          eid: eid
+        }).then(res => {
+            if(res.data.code == 200) {
+                this.$message({
+                    message: '删除成功',
+                    type: 'success'
+                })
+              location.reload();
+            }
+          }).catch(error => {
+      })
     },
     addData(id, ebegin, eend, subject) {
       // 创建新的数据对象

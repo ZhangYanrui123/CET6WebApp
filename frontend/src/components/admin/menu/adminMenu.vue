@@ -62,7 +62,7 @@
                 </el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="/">
+        <el-menu-item index="/login">
             <i class="el-icon-s-home"></i>
             <span slot="title">返回首页</span>
         </el-menu-item>

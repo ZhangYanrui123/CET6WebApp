@@ -201,6 +201,7 @@
                     let qids = this.topic.pquestions.split("&")
                     console.log("qids len")
                     console.log(qids.length)
+                    this.totalcount-=1;
                     for(var i = 0; i < qids.length; i++){
                         let qid = Number(qids[i])
                         this.$axios({url: 'http://127.0.0.1:8081/api/getq',
@@ -276,7 +277,7 @@
         //                 uuid: this.user.uuid,
         //                 eid: this.eid
         //             }})
-        this.$router.push({path: '/student' })
+        this.$router.push({path: '/application' })
       },
       countDown () { //倒计时
         setInterval(() => {

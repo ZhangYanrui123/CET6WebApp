@@ -6,12 +6,14 @@ import java.util.Date;
 
 @Data
 public class ExamInfo {
+    int eid;
     String cname;
     Date ebegin;
     Date eend;
     int esubject;
 
-    public void setInfo(String cname, Date ebegin, Date eend, int esubject){
+    public void setInfo(int eid, String cname, Date ebegin, Date eend, int esubject){
+        this.eid = eid;
         this.cname = cname;
         this.ebegin = ebegin;
         this.eend = eend;

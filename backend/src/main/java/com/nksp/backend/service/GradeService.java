@@ -11,4 +11,6 @@ public interface GradeService {
     int updateSOScore(Grade grade);
 
     int updateSubScore(Grade grade);
+
+    Grade findByUidEid(int uuid, int eid);
 }

@@ -55,6 +55,7 @@ const routes = [
     children: [
       {path: '/', component: () => import('@/components/common/hello')},    // 首页默认路由
       {path: '/addExam', component: () => import('@/components/teacher/addExam')},  // 添加考试
+      {path: '/viewExam', component: () => import('@/components/teacher/viewExam')},  // 添加考试
       {path: '/addAnswer', component: () => import('@/components/teacher/addAnswer')}, // 增加题库主界面
       {path: '/addAnswerChildren', component: () => import('@/components/teacher/addAnswerChildren')},  //点击试卷跳转到添加题库页面
       {path: '/selectExam', component: () => import('@/components/teacher/selectExam')},  // 查询所有考试

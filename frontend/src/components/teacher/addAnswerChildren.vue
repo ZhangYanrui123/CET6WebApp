@@ -98,6 +98,7 @@ import { MessageBox } from 'element-ui';
 export default {
   data() {
     return {
+      eid: 0,
       activeName: 'first',
       optionValue: 'reading', //题型选中值
       options: [ //题目类型
@@ -135,14 +136,19 @@ export default {
       questions: [{ questionText: '', options: [{ optionText: '' }], correctAnswer: null }],
       data:{
         stem: this.readingContent,
-        options: this.questions
+        options: this.questions,
+        eid: this.eid
       }
     };
   },
-  methods: {
-    create() {
+  mounted() {
+      this.eid = this.$route.query.eid;
+      console.log(this.eid);
+  },
+  create() {
       // 添加题库的逻辑
-    },
+  },
+  methods: {
     addQuestion() {
       this.questions.push({ questionText: '', options: [{ optionText: '' }], correctAnswer: null });
     },
@@ -161,6 +167,7 @@ export default {
         this.data.options = this.questions
         console.log(this.data.stem)
         console.log(this.data.options)
+        this.data.eid = this.eid;
       // 发送题目数据给后端的接口
         this.$axios({
             url: 'http://127.0.0.1:8081/api/question/add',

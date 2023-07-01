@@ -112,6 +112,8 @@ public class AnswerController {
         float subFinal = record.getRscore();
         Grade grade = new Grade();
         grade.setInfo(uuid, eid, objFinal, subFinal);
+        grade.setGtotal(0);
+        System.out.println(grade);
         int res = gradeService.updateSOScore(grade);
 
         System.out.println(objFinal);

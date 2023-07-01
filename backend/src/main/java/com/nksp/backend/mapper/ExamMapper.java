@@ -2,6 +2,7 @@ package com.nksp.backend.mapper;
 
 import com.nksp.backend.entity.Exam;
 import com.nksp.backend.entity.Student;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +22,7 @@ public interface ExamMapper {
 
     @Select("select * from examination")
     List<Exam> getAllExams();
+
+    @Delete("delete from examination where eid = #{eid}")
+    Integer deleteById(Integer eid);
 }

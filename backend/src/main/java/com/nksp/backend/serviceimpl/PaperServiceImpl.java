@@ -14,4 +14,12 @@ public class PaperServiceImpl implements PaperService {
     public Paper findById(Integer pid) {
         return paperMapper.findById(pid);
     }
+
+    @Override
+    public Paper findMaxId(){return paperMapper.findMaxId();}
+    @Override
+    public int insertPaper(Paper paper) {return paperMapper.insertPaper(paper);}
+
+    @Override
+    public int updateQuestions(Paper paper) {return paperMapper.updateQuestions(paper);}
 }

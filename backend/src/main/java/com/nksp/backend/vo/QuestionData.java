@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class QuestionData {
+    int eid;
     String stem;
     List<Object> options;
 }

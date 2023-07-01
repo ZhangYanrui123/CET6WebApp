@@ -13,4 +13,6 @@ public interface ExamService {
     List<Exam> findByUid(Integer uuid);
 
     List<Exam> getAllExams();
+
+    Integer deleteById(Integer eid);
 }

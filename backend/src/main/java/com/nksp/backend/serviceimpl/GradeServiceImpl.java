@@ -1,11 +1,9 @@
 package com.nksp.backend.serviceimpl;
 
 import com.nksp.backend.entity.Grade;
-import com.nksp.backend.entity.Paper;
 import com.nksp.backend.mapper.GradeMapper;
 import com.nksp.backend.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,4 +26,7 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public List<Grade> getAllGrade(Integer uuid){return gradeMapper.getAllGrade(uuid);}
+
+    @Override
+    public Grade findByUidEid(int uuid, int eid) {return gradeMapper.findByUidEid(uuid, eid);}
 }

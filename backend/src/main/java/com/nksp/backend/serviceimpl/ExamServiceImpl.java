@@ -27,4 +27,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public List<Exam> getAllExams() {
         return examMapper.getAllExams();}
+
+    @Override
+    public Integer deleteById(Integer eid) {return examMapper.deleteById(eid);}
 }

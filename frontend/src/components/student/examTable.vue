@@ -55,9 +55,9 @@
         <br />
         位置：<span>{{this.classroom.cclassroon}}</span>
         <br />
-        开放时间：<span>{{this.classroom.copen}}</span>
+        开放时间：<span>{{this.dateTransfer(this.classroom.copen)}}</span>
         <br />
-        关闭时间：<span>{{this.classroom.cclose}}</span>
+        关闭时间：<span>{{this.dateTransfer(this.classroom.cclose)}}</span>
         <br />
       </div>
     </el-dialog>
@@ -104,6 +104,30 @@ export default {
     this.getExamInfo();
   },
   methods: {
+      dateTransfer(dateTimeString){
+// 创建一个 Date 对象并解析日期时间字符串
+          const dateTime = new Date(dateTimeString);
+// 获取年、月、日、小时、分钟和秒数
+          const year = dateTime.getUTCFullYear();
+          const month = dateTime.getUTCMonth() + 1; // 月份从 0 开始，需要加 1
+          const day = dateTime.getUTCDate();
+          const hours = dateTime.getUTCHours();
+          const minutes = dateTime.getUTCMinutes();
+          const seconds = dateTime.getUTCSeconds();
+
+// 将各个部分格式化为两位数的字符串
+          const formattedYear = year.toString().slice(-2).padStart(2, "0");
+          const formattedMonth = month.toString().padStart(2, "0");
+          const formattedDay = day.toString().padStart(2, "0");
+          const formattedHours = hours.toString().padStart(2, "0");
+          const formattedMinutes = minutes.toString().padStart(2, "0");
+          const formattedSeconds = seconds.toString().padStart(2, "0");
+
+// 拼接成 yymmddhhmmss 格式的字符串
+          const formattedDateTime = formattedYear +"-"+ formattedMonth +"-"+ formattedDay +" " +formattedHours + ":"+ formattedMinutes + ":"+ formattedSeconds;
+          console.log(formattedDateTime)
+          return formattedDateTime
+      },
     getCookies() {
       //获取cookie
       this.uuid = this.$cookies.get("uuid");
@@ -121,6 +145,10 @@ export default {
       })
           .then((res) => {
             this.pagination.records = res.data.data;
+            this.pagination.records.forEach(record=>{
+                record.ebegin = this.dateTransfer(record.ebegin);
+                record.eend = this.dateTransfer(record.eend);
+            })
             console.log(this.pagination.records)
           })
           .catch((error) => {

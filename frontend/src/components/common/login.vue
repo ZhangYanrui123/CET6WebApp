@@ -15,6 +15,9 @@
                 <div class="submit">
                   <el-button type="primary" class="row-login" @click="login()">登录</el-button>
                 </div>
+                <div class="back">
+                    <el-button type="primary" class="row-login" @click="back()">返回</el-button>
+                </div>
                 <div class="options">
                   <div class="register">
                     <span>没有账号？<a href="javascript:;" @click = "register">去注册</a></span>
@@ -41,6 +44,9 @@
       }
     },
     methods: {
+      back() {
+          this.$router.push({path: '/'})
+      },
       login() {
         console.log("登录中");
         this.$axios({
@@ -119,9 +125,18 @@
     width: 100%;
     background-color: #04468b;
     border-color: #04468b;
-    margin: 20px 0px 10px 0px;
+    margin: 10px 0px 10px 0px;
     padding: 15px 20px;
   }
+
+  .bottom .back .row-login {
+    width: 100%;
+    background-color: green;
+    border-color: greenyellow;
+    margin: 10px 0px 10px 0px;
+    padding: 15px 20px;
+  }
+
   .bottom .submit {
     display: flex;
     justify-content: center;

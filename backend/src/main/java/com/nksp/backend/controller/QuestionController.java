@@ -2,11 +2,10 @@ package com.nksp.backend.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.nksp.backend.entity.ApiResult;
-import com.nksp.backend.entity.Exam;
-import com.nksp.backend.entity.Option;
-import com.nksp.backend.entity.Question;
+import com.nksp.backend.entity.*;
+import com.nksp.backend.serviceimpl.ExamServiceImpl;
 import com.nksp.backend.serviceimpl.OptionServiceImpl;
+import com.nksp.backend.serviceimpl.PaperServiceImpl;
 import com.nksp.backend.serviceimpl.QuestionServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
 import com.nksp.backend.vo.QuestionData;
@@ -20,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.nksp.backend.util.AddQuestionIntoPaper.addQuestionIntoPaper;
 import static com.nksp.backend.util.StringHelper.getValue;
 import static com.nksp.backend.util.StringHelper.getValues;
 
@@ -30,6 +30,12 @@ public class QuestionController {
 
     @Autowired
     private OptionServiceImpl optionService;
+
+    @Autowired
+    private PaperServiceImpl paperService;
+
+    @Autowired
+    private ExamServiceImpl examService;
 
     @GetMapping("/api/question/{qid}")
     public ApiResult findById(@PathVariable("qid") Integer userId) {
@@ -81,7 +87,13 @@ public class QuestionController {
         Question question = new Question();
         question.setQuestion(4, stem, questionCnt, 0);
         questionService.insertQues(question);
+        // 2.5 add question into its paper
         int questionId = question.getQid();
+        System.out.println(params.getEid());
+        Exam exam = examService.findById(params.getEid());
+        Paper paper = paperService.findById(exam.getPid());
+        addQuestionIntoPaper(paper, questionId);
+        int res = paperService.updateQuestions(paper);
         // 3. get questionText
         // 4. get optionText (many)
         // 5. get correctAnswer
@@ -115,7 +127,7 @@ public class QuestionController {
             for (String optionText : optionTexts) {
                 System.out.println("optionText: " + optionText);
                 Option option = new Option();
-                boolean isright = Integer.parseInt(correctAnswer) == tmpcnt;
+                boolean isright = Integer.parseInt(correctAnswer) == tmpcnt; // 正确选项
                 option.setOption(subQuestionId, optionText, isright);
                 optionService.insertOption(option);
                 tmpcnt++;
