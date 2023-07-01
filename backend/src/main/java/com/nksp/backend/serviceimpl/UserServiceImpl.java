@@ -3,6 +3,7 @@ package com.nksp.backend.serviceimpl;
 import com.nksp.backend.entity.User;
 import com.nksp.backend.mapper.UserMapper;
 import com.nksp.backend.service.UserService;
+import com.nksp.backend.vo.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByName(String uname){return userMapper.findByName(uname);}
+
+    @Override
+    public int insertUser(RegisterInfo info){return userMapper.insertUser(info);}
 }

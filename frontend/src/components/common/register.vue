@@ -17,8 +17,8 @@
                 </el-form-item>
                 <el-form-item label="性别">
                     <el-radio-group v-model="userData.usex">
-                        <el-radio :label="true">男</el-radio>
-                        <el-radio :label="false">女</el-radio>
+                        <el-radio :label=0>男</el-radio>
+                        <el-radio :label=1>女</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="生日">
@@ -91,13 +91,13 @@
             })
         }
         else{
-            this.$axios({url: '/api/register',method: 'post',data: this.userData}).then(res => {
+            this.$axios({url: 'http://127.0.0.1:8081/api/register',method: 'post',data: this.userData}).then(res => {
                 if(res.data.data){
-                    let role = res.data.data.role
+                    let userData = res.data.data
                     this.$cookies.set("uname", userData.uname)
                     this.$cookies.set("uuid", userData.uuid)
-                    this.$cookies.set("role", role)
-                    switch(role) {
+                    this.$cookies.set("role", userData.role)
+                    switch(userData.role) {
                         case "1":  //管理员
                             this.$router.push({path: '/index' })
                             break

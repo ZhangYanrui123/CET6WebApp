@@ -15,6 +15,9 @@
     <description>backend</description>
     <properties>
         <java.version>17</java.version>
+        <fastjson.version>1.2.79</fastjson.version>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <spring-cloud-alibaba-version>2021.0.1.0</spring-cloud-alibaba-version>
     </properties>
     <dependencies>
         <dependency>
@@ -104,8 +107,14 @@
             <version>2.2.3</version>
             <classifier>jdk15</classifier><!-- jdk版本 -->
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>

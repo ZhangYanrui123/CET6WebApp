@@ -9,6 +9,7 @@ import com.nksp.backend.serviceimpl.UserServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
 import com.nksp.backend.vo.LoginInfo2;
 import com.nksp.backend.vo.ManageData;
+import com.nksp.backend.vo.RegisterInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,8 +59,29 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/api/register")
-//    public ApiResult userRegister(@RequestBody User user){
-//
-//    }
+    @PostMapping("/api/register")
+    public ApiResult userRegister(@RequestBody RegisterInfo params){
+        System.out.println(params);
+        int ret1 = userService.insertUser(params);
+        User res = userService.findByName(params.getUname());
+
+        Student student = new Student(res.getUuid(),params.getSuniversity(),params.getScollege(),params.getSmajority(),params.getSno(),params.getSclass(),params.getSgrade());
+        System.out.println(student);
+        int ret2 = studentService.insertStudent(student);
+//        if((ret1 > 0) & (ret2 > 0) ){
+//            System.out.println(params);
+//            return ApiResultHandler.buildApiResult(200, "请求成功", ret1 + ret2);
+//        } else {
+//            return ApiResultHandler.buildApiResult(404, "插入user失败", null);
+//        }
+        if ((ret1 > 0) & (ret2 > 0)) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200,"请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404,"插入user失败",null);
+        }
+
+//        return ApiResultHandler.buildApiResult(200,"请求成功", null);
+    }
+
 }
