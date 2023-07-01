@@ -1,14 +1,13 @@
 package com.nksp.backend.controller;
 
-import com.nksp.backend.entity.ApiResult;
-import com.nksp.backend.entity.Exam;
-import com.nksp.backend.entity.Join;
-import com.nksp.backend.entity.Student;
+import com.nksp.backend.entity.*;
 import com.nksp.backend.mapper.ExamMapper;
+import com.nksp.backend.serviceimpl.ClassroomServiceImpl;
 import com.nksp.backend.serviceimpl.ExamServiceImpl;
 import com.nksp.backend.serviceimpl.JoinServiceImpl;
 import com.nksp.backend.serviceimpl.StudentServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
+import com.nksp.backend.vo.ExamInfo;
 import com.nksp.backend.vo.LoginInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,9 @@ public class ExamController {
 
     @Autowired
     private JoinServiceImpl joinService;
+
+    @Autowired
+    private ClassroomServiceImpl classroomService;
 
     @GetMapping("/api/examination/{eid}")
     public ApiResult findById(@PathVariable("eid") Integer userId) {
@@ -84,6 +86,25 @@ public class ExamController {
         Exam exam = new Exam();
         exam.setInfo(params);
         return ApiResultHandler.buildApiResult(200, "请求成功", exam);
+    }
+
+    @PostMapping("/api/exam/getAllExams")
+    public ApiResult getAllExams() {
+        List<ExamInfo> res = new ArrayList<>();
+        List<Exam> examList = examService.getAllExams();
+        for(Exam e: examList){
+            ExamInfo ei = new ExamInfo();
+            Classroom cr = classroomService.findById(e.getCid());
+            if(cr == null)continue;
+            ei.setInfo(cr.getCclassroom(), e.getEbegin(), e.getEend(), e.getEsubject());
+            res.add(ei);
+        }
+        if (res != null) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的考试不存在", null);
+        }
     }
 
 }

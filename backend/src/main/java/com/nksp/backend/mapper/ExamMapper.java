@@ -18,4 +18,7 @@ public interface ExamMapper {
 
     @Select("select * from examination where uuid = #{uuid}")
     List<Exam> findByUid(Integer uuid);
+
+    @Select("select * from examination")
+    List<Exam> getAllExams();
 }

@@ -34,7 +34,7 @@ const state = {
     },
     {
       index: '2',
-      title: '考卷上传',
+      title: '设置考试',
       icon: 'icon-tiku',
       content:[{item1:'添加考试',path:'/addExam'}, {item1:'编辑考卷',path:'/addAnswer'}],
     },
@@ -50,18 +50,18 @@ const state = {
     //   icon: 'icon-performance',
     //   content:[{item1:'学生成绩查询',path:'/allStudentsGrade'},{path: '/grade'},{item2: '成绩分段查询',path: '/selectExamToPart'},{path: '/scorePart'}],
     // },
-    {
-      index: '4',
-      title: '学生管理',
-      icon: 'icon-role',
-      content:[{item1:'学生管理',path:'/studentManage'},{item2: '添加学生',path: '/addStudent'}],
-    },
-    {
-      index: '5',
-      title: '教师管理',
-      icon: 'icon-Userselect',
-      content:[{item1:'教师管理',path:'/teacherManage'},{item2: '添加教师',path: '/addTeacher'}],
-    },
+    // {
+    //   index: '4',
+    //   title: '学生管理',
+    //   icon: 'icon-role',
+    //   content:[{item1:'学生管理',path:'/studentManage'},{item2: '添加学生',path: '/addStudent'}],
+    // },
+    // {
+    //   index: '5',
+    //   title: '教师管理',
+    //   icon: 'icon-Userselect',
+    //   content:[{item1:'教师管理',path:'/teacherManage'},{item2: '添加教师',path: '/addTeacher'}],
+    // },
     // {
     //   index: '7',
     //   title: '模块管理',

@@ -34,7 +34,7 @@ public class UserController {
     public ApiResult findById(@RequestBody LoginInfo2 params) {
         User res = userService.findByName(params.getUname());
         System.out.println(params.getUname());
-        if (params.getUpwd().equals(res.getUpwd())) {
+        if (res!=null && params.getUpwd().equals(res.getUpwd())) {
             System.out.println(res);
             return ApiResultHandler.buildApiResult(200,"请求成功", res);
         } else {

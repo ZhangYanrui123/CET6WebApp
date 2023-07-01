@@ -3,11 +3,17 @@
   <div class="exam">
 <!--    <el-button @click="addData">请添加试卷</el-button>-->
     <el-table :data="pagination.records" border>
-      <el-table-column fixed="left" prop="id" label="考场编号" width="180"></el-table-column>
-      <el-table-column prop="ebegin" label="开始时间" width="200"></el-table-column>
-      <el-table-column prop="eend" label="结束时间" width="200"></el-table-column>
-      <el-table-column prop="subject" label="考试科目" width="180"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="150">
+      <el-table-column fixed="left" prop="cname" label="考场" width="200"></el-table-column>
+      <el-table-column prop="ebegin" label="开始时间" width="240"></el-table-column>
+      <el-table-column prop="eend" label="结束时间" width="240"></el-table-column>
+      <el-table-column prop="esubject" label="考试科目" width="200">
+          <template slot-scope="scope">
+              <span v-if="scope.row.esubject === 1">六级口语</span>
+              <span v-else-if="scope.row.esubject === 2">六级笔试</span>
+              <span v-else>{{ scope.row.esubject }}</span>
+          </template>
+      </el-table-column>
+      <el-table-column fixed="right" label="操作" width="200">
         <template slot-scope="scope">
           <el-button @click="add(scope.row.paperId,scope.row.source)" type="primary" size="small">编辑考卷</el-button>
         </template>
@@ -40,13 +46,42 @@ export default {
   },
   created() {
     this.getExamInfo()
-    this.addData("001","2023-05-15 10:00","2023-05-15 12:00","六级笔试")
-    this.addData("002","2023-06-04 10:00","2023-06-04 12:00","六级口语")
+    //this.addData("001","2023-05-15 10:00","2023-05-15 12:00","六级笔试")
+    //this.addData("002","2023-06-04 10:00","2023-06-04 12:00","六级口语")
   },
   methods: {
+    dateTransfer(dateTimeString){
+// 创建一个 Date 对象并解析日期时间字符串
+        const dateTime = new Date(dateTimeString);
+// 获取年、月、日、小时、分钟和秒数
+        const year = dateTime.getUTCFullYear();
+        const month = dateTime.getUTCMonth() + 1; // 月份从 0 开始，需要加 1
+        const day = dateTime.getUTCDate();
+        const hours = dateTime.getUTCHours();
+        const minutes = dateTime.getUTCMinutes();
+        const seconds = dateTime.getUTCSeconds();
+
+// 将各个部分格式化为两位数的字符串
+        const formattedYear = year.toString().slice(-2).padStart(2, "0");
+        const formattedMonth = month.toString().padStart(2, "0");
+        const formattedDay = day.toString().padStart(2, "0");
+        const formattedHours = hours.toString().padStart(2, "0");
+        const formattedMinutes = minutes.toString().padStart(2, "0");
+        const formattedSeconds = seconds.toString().padStart(2, "0");
+
+// 拼接成 yymmddhhmmss 格式的字符串
+        const formattedDateTime = formattedYear +"-"+ formattedMonth +"-"+ formattedDay +" " +formattedHours + ":"+ formattedMinutes + ":"+ formattedSeconds;
+        console.log(formattedDateTime)
+        return formattedDateTime
+    },
     getExamInfo() { //分页查询所有试卷信息
-      this.$axios(`/api/exams/${this.pagination.current}/${this.pagination.size}`).then(res => {
-        this.pagination = res.data.data
+      this.$axios.post(`http://127.0.0.1:8081/api/exam/getAllExams`)
+          .then(res => {
+          this.pagination.records = res.data.data;
+          this.pagination.records.forEach(record => {
+              record.ebegin = this.dateTransfer(record.ebegin);
+              record.eend = this.dateTransfer(record.eend);
+          });
       }).catch(error => {
       })
     },

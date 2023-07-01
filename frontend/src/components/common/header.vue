@@ -14,9 +14,9 @@
           <transition name="fade">
             <div class="out" ref="out" v-show="login_flag">
               <ul>
-                <li><a href="javascript:;">用户信息</a></li>
+                <li><a href="javascript:;">信息</a></li>
                 <li><a href="javascript:;">设置</a></li>
-                <li class="exit" @click="exit()"><a href="javascript:;">退出登录</a></li>
+                <li class="exit" @click="exit()"><a href="javascript:;">退出</a></li>
               </ul>
             </div>
           </transition>

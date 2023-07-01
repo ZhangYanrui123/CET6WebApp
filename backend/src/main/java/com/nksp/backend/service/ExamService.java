@@ -11,4 +11,6 @@ public interface ExamService {
     int addExam(Exam exam);
 
     List<Exam> findByUid(Integer uuid);
+
+    List<Exam> getAllExams();
 }
