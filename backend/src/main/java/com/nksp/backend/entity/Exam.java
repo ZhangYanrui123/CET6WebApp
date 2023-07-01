@@ -24,6 +24,20 @@ public class Exam {
         this.pid = exam.pid;
     }
 
+    public Exam(){
+
+    }
+
+    public Exam(int eid, int cid, Date ebegin, Date eend, int esubject, int estate, int pid) {
+        this.eid = eid;
+        this.cid = cid;
+        this.ebegin = ebegin;
+        this.eend = eend;
+        this.esubject = esubject;
+        this.estate = estate;
+        this.pid = pid;
+    }
+
     public Exam(int cid, Date ebegin, Date eend, int esubject, int estate, int pid) {
         this.cid = cid;
         this.ebegin = ebegin;

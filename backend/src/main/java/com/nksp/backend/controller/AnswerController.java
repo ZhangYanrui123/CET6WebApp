@@ -69,26 +69,39 @@ public class AnswerController {
                 // 客观题，累加分值
                 objScore += Integer.parseInt(scorelist[curQcnt]);
             }
-            if(question.getQbelong() != 0){
-                // 小题subquestion
-                List<Question> subquestions = questionService.getSubQuesList(qid);
-                for(Question subq : subquestions){
-                    String rightAns = GetQuestionRightAnswer.getAnswer(subq, subq.getQid(), optionService);
-                    if(optionlist[curQcnt].equals(rightAns)) right++;
-                    curQcnt++;
+//            if(question.getQbelong() != 0){
+//                // 小题subquestion
+//                List<Question> subquestions = questionService.getSubQuesList(qid);
+//                for(Question subq : subquestions){
+//                    String rightAns = GetQuestionRightAnswer.getAnswer(subq, subq.getQid(), optionService);
+//                    if(optionlist[curQcnt].equals(rightAns)) right++;
+//                    curQcnt++;
+//                }
+//            }else{
+//                // 没有小题的question，查option找答案，和当前optionlist比对累计正确个数
+//                // 阅读大题干
+//                if(question.getQtype() == 4) continue;
+//                String rightAns = GetQuestionRightAnswer.getAnswer(question, qid, optionService);
+//                if(optionlist[curQcnt].equals(rightAns)) right++;
+//                curQcnt++;
+//            }
+            if (question.getQtype() == 5) {
+                continue;
+            } else {
+                if (question.getQtype() == 4 && question.getQnum() != 0) {
+                    List<Question> subquestions = questionService.getSubQuesList(qid);
+                    for (Question subq : subquestions) {
+                        String rightAns = GetQuestionRightAnswer.getAnswer(subq, subq.getQid(), optionService);
+                        System.out.println(rightAns);
+                        if (optionlist[curQcnt].equals(rightAns)) right++;
+                        curQcnt++;
+                    }
                 }
-            }else{
-                // 没有小题的question，查option找答案，和当前optionlist比对累计正确个数
-                // 阅读大题干
-                if(question.getQtype() == 4) continue;
-                String rightAns = GetQuestionRightAnswer.getAnswer(question, qid, optionService);
-                if(optionlist[curQcnt].equals(rightAns)) right++;
-                curQcnt++;
             }
         }
 
         // 总curQcnt，对right，总分objScore，可以计算出客观题的正确率，从而简单计算得分
-        float objFinal = right / curQcnt * objScore;
+        float objFinal = (float) right / curQcnt * objScore;
 
         // 3. 查Record，获取主观题得分，并和客观题得分一起写入Grade表
         int uuid = answer.getUuid();
