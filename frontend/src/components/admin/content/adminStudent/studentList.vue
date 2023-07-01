@@ -2,16 +2,16 @@
 <template>
     <div class="all">
         <h2>学生列表</h2>
-        <el-table :data="tableInfo" border>
-            <el-table-column fixed="left" prop="uuid" label="用户Id" width="180">
-            </el-table-column>
-            <el-table-column prop="suniversity" label="大学名称" width="120"></el-table-column>
-            <el-table-column prop="scollege" label="学院名称" width="200"></el-table-column>
+        <el-table :data="this.pagination.records" border>
+            <el-table-column fixed="left"  prop="suniversity" label="大学名称" width="120"></el-table-column>
+            <el-table-column prop="scollege" label="学院名称" width="150"></el-table-column>
             <el-table-column prop="smajority" label="专业名称" width="200"></el-table-column>
             <el-table-column prop="sno" label="学号" width="100"></el-table-column>
+            <el-table-column prop="uname" label="姓名" width="100"></el-table-column>
             <el-table-column prop="sclass" label="班级" width="120"></el-table-column>
             <el-table-column prop="sgrade" label="年级" width="120"></el-table-column>
-            <el-table-column label="操作" width="120">
+            <el-table-column prop="utel" label="联系电话" width="140"></el-table-column>
+            <el-table-column label="操作" width="150">
                 <template slot-scope="scope">
                     <span><el-button
                         size="mini"
@@ -20,7 +20,7 @@
                     <span><el-button
                         size="mini"
                         type="danger"
-                        @click="deleteById(scope.$index, scope.row)"
+                        @click="deleteStudent(scope.$index, scope.row)"
                     >删除</el-button></span>
                 </template>
             </el-table-column>
@@ -29,7 +29,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page="pagination.current"
-            :page-sizes="[6, 10]"
+            :page-sizes="[5, 10]"
             :page-size="pagination.size"
             layout="total, sizes, prev, pager, next, jumper"
             :total="pagination.total"
@@ -37,17 +37,14 @@
         </el-pagination>
         <!-- 编辑对话框-->
         <el-dialog
-            title="编辑试卷信息"
+            title="编辑学生信息"
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose">
             <section class="update">
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="用户Id">
-                        <el-input v-model="form.uuid"></el-input>
-                    </el-form-item>
                     <el-form-item label="大学名称">
-                        <el-input v-model="form.suniversity"></el-input>
+                        <el-input v-model="form.suniversity" value="this.diagInfo.suniversity"></el-input>
                     </el-form-item>
                     <el-form-item label="学院名称">
                         <el-input v-model="form.scollege"></el-input>
@@ -56,13 +53,19 @@
                         <el-input v-model="form.smajority"></el-input>
                     </el-form-item>
                     <el-form-item label="学号">
-                        <el-input v-model="form.sno"></el-input>
+                        <el-input v-model="form.sno" :disabled="true"></el-input>
+                    </el-form-item>
+                    <el-form-item label="姓名">
+                        <el-input v-model="form.uname" :disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label="班级">
                         <el-input v-model="form.sclass"></el-input>
                     </el-form-item>
                     <el-form-item label="年级">
                         <el-input v-model="form.sgrade"></el-input>
+                    </el-form-item>
+                    <el-form-item label="联系电话">
+                        <el-input v-model="form.utel"></el-input>
                     </el-form-item>
                 </el-form>
             </section>
@@ -89,37 +92,23 @@ export default {
             dialogVisible: false, //对话框
             form: {// 保存点击以后当前试卷的信息
             },
-            tableInfo:[{
-                    uuid: 123456,
-                    suniversity: '南开大学',
-                    scollege: '计算机学院',
-                    smajority:'计算机科学与技术',
-                    sno: 2010139,
-                    sclass: '计科三班',
-                    sgrade: 2020,
-                },
-                {
-                    uuid: 123456,
-                    suniversity: '南开大学',
-                    scollege: '计算机学院',
-                    smajority:'计算机科学与技术',
-                    sno: 2010139,
-                    sclass: '计科三班',
-                    sgrade: 2020
-                }
-            ]
         };
     },
     created() {
-        //this.getStudentInfo();
+        this.getStudentInfo();
     },
     methods: {
-        /*getStudentInfo() {
+        getStudentInfo() {
             //分页查询所有试卷信息
-            this.$axios(`/api/students/${this.pagination.current}/${this.pagination.size}`).then(res => {
-                this.pagination = res.data.data;
-            }).catch(error => {});
-        },*/
+            this.$axios({
+                url: "http://127.0.0.1:8081/api/student/allStudents",
+                method: "post",
+            }).then((res) => {
+                this.pagination.records = res.data.data;
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         //改变当前记录条数
         handleSizeChange(val) {
             this.pagination.size = val;
@@ -130,46 +119,59 @@ export default {
             this.pagination.current = val;
             this.getStudentInfo();
         },
-        checkGrade(studentId) { //修改学生信息
-            this.dialogVisible = true
-            this.$axios(`/api/student/${studentId}`).then(res => {
-                this.form = res.data.data
-            })
+        checkGrade(index, row) { //修改学生信息
+            this.form = row;
+            this.dialogVisible = true;
         },
-        deleteById(studentId) { //删除当前学生
+        deleteStudent(index, row) { //删除当前学生
             this.$confirm("确定删除当前学生吗？删除后无法恢复","Warning",{
                 confirmButtonText: '确定删除',
                 cancelButtonText: '算了,留着吧',
                 type: 'danger'
             }).then(()=> { //确认删除
-                this.$axios({
-                    url: `/api/student/${studentId}`,
-                    method: 'delete',
-                }).then(res => {
-                    this.getStudentInfo()
-                })
+                console.log(row.uname)
+                console.log(row.sno)
+                this.$axios.post('http://127.0.0.1:8081/api/admin/deleteStudent',{
+                        uname: row.uname,
+                        sno: row.sno
+                    }).then(response => {
+                    if (response.status === 200) {
+                        // 请求成功的处理逻辑
+                        this.$message.success('删除成功');  // 弹出成功提示消息
+                        this.getStudentInfo();  // 刷新页面数据，你可以根据具体情况自定义刷新页面的方法
+                    } else {
+                        // 请求成功但返回的状态码不是200的处理逻辑
+                        this.$message.error('请求失败');
+                    }
+                }).catch(error => {
+                    // 请求错误的处理逻辑
+                    this.$message.error('请求发生错误');
+                });
             }).catch(() => {
 
             })
         },
         submit() { //提交更改
-            this.dialogVisible = false
+            console.log(this.form)
             this.$axios({
-                url: '/api/student',
-                method: 'put',
+                url: 'http://127.0.0.1:8081/api/admin/updateStudent',
+                method: 'post',
                 data: {
                     ...this.form
+                }}).then(response => {
+                if (response.status === 200) {
+                    // 请求成功的处理逻辑
+                    this.$message.success('更新成功');  // 弹出成功提示消息
+                    this.dialogVisible = false;  // 关闭当前对话框，你可以根据具体情况自定义关闭对话框的方法
+                    this.getStudentInfo();  // 刷新页面数据，你可以根据具体情况自定义刷新页面的方法
+                } else {
+                    // 请求成功但返回的状态码不是200的处理逻辑
+                    this.$message.error('请求失败');
                 }
-            }).then(res => {
-                console.log(res)
-                if(res.data.code ==200) {
-                    this.$message({
-                        message: '更新成功',
-                        type: 'success'
-                    })
-                }
-                this.getStudentInfo()
-            })
+            }).catch(error => {
+                // 请求错误的处理逻辑
+                this.$message.error('请求发生错误');
+            });
         },
         handleClose(done) { //关闭提醒
             this.$confirm('确认关闭？')

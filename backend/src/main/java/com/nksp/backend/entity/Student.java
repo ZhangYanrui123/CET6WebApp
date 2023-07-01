@@ -24,6 +24,14 @@ public class Student {
         this.sgrade = sgrade;
     }
 
+    public void updateInfo(String university, String college, String majority, String sclass, Year grade) {
+        this.suniversity = university==null?this.suniversity:university;
+        this.scollege = college==null?this.scollege:college;
+        this.smajority = majority==null?this.smajority:majority;
+        this.sclass = sclass==null?this.sclass:sclass;
+        this.sgrade = grade==null?this.sgrade:grade;
+    }
+
     public void setUuid(int uuid) {
         this.uuid = uuid;
     }
@@ -51,4 +59,5 @@ public class Student {
     public void setSgrade(Year sgrade) {
         this.sgrade = sgrade;
     }
+
 }

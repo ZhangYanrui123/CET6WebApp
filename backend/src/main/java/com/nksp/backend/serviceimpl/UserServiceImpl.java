@@ -22,4 +22,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int insertUser(RegisterInfo info){return userMapper.insertUser(info);}
+
+    @Override
+    public int addUser(User user){return userMapper.addUser(user);}
+
+    @Override
+    public int updateUser(User user) {return userMapper.updateUser(user);}
+
+    @Override
+    public int deleteUserByName(String uname) {return userMapper.deleteUserByName(uname);}
 }

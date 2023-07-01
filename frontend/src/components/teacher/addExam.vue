@@ -2,9 +2,21 @@
 <template>
   <section class="add">
     <el-form ref="form" :model="form" label-width="80px">
-      <el-form-item label="考场号">
-        <el-input v-model="form.cid"></el-input>
-      </el-form-item>
+        <el-form-item label="考场教室">
+          <el-select v-model="form.cname" label="考场" placeholder="请选择">
+              <el-option-group
+                      v-for="group in form.options"
+                      :key="group.label"
+                      :label="group.label">
+                  <el-option
+                          v-for="item in group.options"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                  </el-option>
+              </el-option-group>
+          </el-select>
+        </el-form-item>
       <el-form-item label="开始时间">
         <el-date-picker
           v-model="form.ebegin"
@@ -43,9 +55,27 @@ export default {
     return {
       form: { //表单数据初始化
         cid: null,
+        cname: null,
         ebegin: null,
         eend: null,
-        subject: null
+        subject: null,
+        options: [{
+            label: '公教B',
+            options: [{
+                value: 'B402',
+                label: 'B402'
+            }, {
+                value: 'B403',
+                label: 'B403'
+            }]
+        }, {
+            label: '公教C',
+            options: [{
+                value: 'C129',
+                label: 'C129'
+            }]
+        }],
+        value: ''
       }
     };
   },

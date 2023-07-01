@@ -9,4 +9,10 @@ public interface UserService {
     User findByName(String uname);
 
     int insertUser(RegisterInfo info);
+
+    int addUser(User user);
+
+    int updateUser(User user);
+
+    int deleteUserByName(String uname);
 }
