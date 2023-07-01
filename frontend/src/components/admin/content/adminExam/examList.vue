@@ -80,13 +80,13 @@ export default {
         };
     },
     created() {
-        //this.getStudentInfo();
+        this.getExamInfo();
     },
     methods: {
         getExamInfo() {
             //分页查询所有试卷信息
             this.$axios({
-                url: "http://127.0.0.1:8081/api/student/allStudents",
+                url: "http://127.0.0.1:8081/api/classroom/getAllClassrooms",
                 method: "post",
             }).then((res) => {
                 this.pagination.records = res.data.data;

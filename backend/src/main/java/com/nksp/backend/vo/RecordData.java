@@ -4,17 +4,24 @@ import lombok.Data;
 
 @Data
 public class RecordData {
-    String questionType;
-    String questionContent;
-    String studentAnswer;
+    int rid;
+    String qtype;
+    String qstem;
+    String ranswer;
+    float rscore;
 
-    public void setRecordData(int type, String content, String answer){
+    public RecordData() {
+    }
+
+    public void setRecordData(int rid, int type, String qstem, String ranswer, float rscore){
+        this.rid = rid;
         if(type == 5){
-            this.questionType = "translation";
+            this.qtype = "5";
         }else if(type == 6){
-            this.questionType = "writing";
+            this.qtype = "6";
         }
-        this.questionContent = content;
-        this.studentAnswer = answer;
+        this.qstem = qstem;
+        this.ranswer = ranswer;
+        this.rscore = rscore;
     }
 }

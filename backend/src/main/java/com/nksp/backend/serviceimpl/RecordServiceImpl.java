@@ -1,11 +1,7 @@
 package com.nksp.backend.serviceimpl;
 
-import com.nksp.backend.entity.Question;
 import com.nksp.backend.entity.Record;
-import com.nksp.backend.mapper.QuestionMapper;
 import com.nksp.backend.mapper.RecordMapper;
-import com.nksp.backend.service.PaperService;
-import com.nksp.backend.service.QuestionService;
 import com.nksp.backend.service.RecordService;
 //import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +28,7 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public int updateRecord(Record record){return recordMapper.updateRecord(record);}
+
+    @Override
+    public List<Record> getAllRecords() {return recordMapper.getAllRecords();}
 }

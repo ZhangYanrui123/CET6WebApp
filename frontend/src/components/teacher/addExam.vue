@@ -79,16 +79,43 @@ export default {
       }
     };
   },
+    created() {
+        this.getClassrooms();
+    },
   methods: {
-    formatTime(date) { //日期格式化
-      let year = date.getFullYear()
-      let month= date.getMonth()+ 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-      let day=date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-      let hours=date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      let minutes=date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-      let seconds=date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-      // 拼接
-      return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+    getClassrooms(){
+        this.$axios({
+            url:"http://127.0.0.1:8081/api/classroom/getAllClassrooms",
+            method: 'post',
+        }).then(res => {
+            const classrooms = res.data.data
+            const options = [];
+            const categories = {};
+            classrooms.forEach(classroom=>{
+               // 获取首字母作为分类标识
+                const category = classroom.cclassroom[0];
+                // 如果分类不存在，则创建一个新的分类对象
+                if (!categories[category]) {
+                    categories[category] = {
+                        label: `公教${category}`,
+                        options: []
+                    };
+                }
+                // 将当前项添加到相应的分类的 options 数组中
+                categories[category].options.push({
+                    value: classroom.cclassroom,
+                    label: classroom.cclassroom
+                });
+            })
+            // 将分类对象中的值转换为最终的数组结构
+            for (const category in categories) {
+                options.push(categories[category]);
+            }
+            console.log(options);
+            this.form.options = options;
+        }).catch(error => {
+            console.error(error);
+        });
     },
     onSubmit() {
 
@@ -103,12 +130,6 @@ export default {
     cancel() { //取消按钮
       this.form = {}
     },
-    watch: {
-    'form.eend': function(newVal) {
-      console.log('form.eend changed:', newVal);
-    }
-  }
-    
   }
 };
 </script>

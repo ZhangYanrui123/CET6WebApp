@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface ClassroomMapper {
     @Select("select * from classroom where cid = #{cid}")
@@ -17,4 +19,7 @@ public interface ClassroomMapper {
 
     @Insert("insert into classroom(cuniversity, cclassroom, copen, cclose) values (#{cuniversity},#{cclassroom},#{copen},#{cclose})")
     int addClassromm(Classroom classroom);
+
+    @Select("select * from classroom")
+    List<Classroom> getAllClassrooms();
 }

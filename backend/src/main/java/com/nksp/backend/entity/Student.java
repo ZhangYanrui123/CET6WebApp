@@ -14,6 +14,9 @@ public class Student {
     String  sclass;
     Year sgrade;
 
+    public Student() {
+    }
+
     public Student(int uuid, String suniversity, String scollege, String smajority, int sno, String sclass, Year sgrade) {
         this.uuid = uuid;
         this.suniversity = suniversity;

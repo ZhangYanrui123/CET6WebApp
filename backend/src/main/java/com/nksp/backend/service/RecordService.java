@@ -13,4 +13,6 @@ public interface RecordService {
     int updateRecord(Record record);
 
     List<Record> findByUEid(Integer uuid, Integer eid);
+
+    List<Record> getAllRecords();
 }

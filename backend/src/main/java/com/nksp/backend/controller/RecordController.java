@@ -13,6 +13,8 @@ import com.nksp.backend.vo.RecordData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,9 +47,30 @@ public class RecordController {
         // 题目和类型
         Question question = questionService.findById(qid);
         RecordData recordData = new RecordData();
-        recordData.setRecordData(question.getQtype(), question.getQstem(), res.getRanswer());
+        recordData.setRecordData(rid, question.getQtype(), question.getQstem(), res.getRanswer(),0);
         System.out.println(recordData);
         return ApiResultHandler.buildApiResult(200, "请求成功", recordData);
+    }
+
+    @PostMapping("/api/teacher/getAllRecords")
+    public ApiResult getAllRecords(){
+        List<Record> records = recordService.getAllRecords();
+        List<RecordData> res = new ArrayList<>();
+        for(Record r:records){
+            // 已经判过分，直接跳过
+            if(r.getRscore() > 0) continue;
+            int qid = r.getQid();
+            Question question = questionService.findById(qid);
+            RecordData rd = new RecordData();
+            rd.setRecordData(r.getRid(), question.getQtype(), question.getQstem(), r.getRanswer(), 0);
+            res.add(rd);
+        }
+        if (res != null) {
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "请求结果为空", null);
+        }
     }
 
     @PostMapping("/api/pushr")
@@ -61,8 +84,11 @@ public class RecordController {
         }
     }
 
-    @PostMapping("/api/score")
-    public ApiResult addScore(@RequestBody Record record){
+    @PostMapping("/api/teacher/updateScore")
+    public ApiResult updateScore(@RequestBody RecordData recordData){
+        System.out.println(recordData);
+        Record record = recordService.findById(recordData.getRid());
+        record.setRscore(recordData.getRscore());
         int res = recordService.updateRecord(record);
         System.out.println(record);
         Grade grade = new Grade();

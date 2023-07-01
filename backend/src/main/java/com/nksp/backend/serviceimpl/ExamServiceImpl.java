@@ -25,5 +25,6 @@ public class ExamServiceImpl implements ExamService {
     public int addExam(Exam exam){return examMapper.addExam(exam);}
 
     @Override
-    public List<Exam> getAllExams() { return examMapper.getAllExams();}
+    public List<Exam> getAllExams() {
+        return examMapper.getAllExams();}
 }

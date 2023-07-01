@@ -21,4 +21,7 @@ public interface RecordMapper {
 
     @Update("update record set rscore=#{rscore} where uuid = #{uuid} and eid = #{eid} and qid = #{qid} and rid = #{rid}")
     int updateRecord(Record record);
+
+    @Select("select * from record")
+    List<Record> getAllRecords();
 }
