@@ -1,8 +1,5 @@
 <template>
     <div class="scoreTable">
-      <ul class="top">
-        <span class="order">成绩列表</span> <!--可以添加考试查询，按照分类-->
-      </ul>
       <ul class="paper" v-loading="loading">
         <li class="item" v-for="(item,index) in pagination.records" :key="index">
           <div class="info">
@@ -113,6 +110,9 @@
       justify-content: center;
     }
   }
+  .paper {
+    padding: 20px;
+  }
   .paper .item a {
     color: #417ea1;
   }
@@ -149,7 +149,7 @@
   .scoreTable {
     width: 90%;
     margin: 0 auto;
-    background-color: #dda6cb17;
+    background-color: rgba(209, 166, 221, 0.09);
   }
   </style>
   

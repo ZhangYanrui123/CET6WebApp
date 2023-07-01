@@ -50,7 +50,9 @@
 .student .head {
   margin: 0 auto;
   padding: 0px 50px;
-  background-color: #fff;
+  background-color: rgba(238, 238, 238, 0.17);
+  border-bottom: 3px double;
+  border-bottom-color: rgba(17, 17, 17, 0.33);
 }
 .navigation a {
   display:block;
@@ -104,4 +106,5 @@ li {
   background-color: #7e3ac2;
   color: #fff;
 }
+
 </style>

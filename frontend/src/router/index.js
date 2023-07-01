@@ -74,6 +74,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import('@/components/student/index.vue'),
     children: [
+      {path: '/', component: () => import('@/components/student//examTable.vue')},   // 默认
       {path:'/examTable', component: () => import('@/components/student//examTable.vue')},
       {path:'/application', component: () => import('@/components/student//application.vue')},
       {path:'/scoreTable', component: () => import('@/components/student//scoreTable.vue')},
