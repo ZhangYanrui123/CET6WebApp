@@ -13,7 +13,7 @@ public interface ExamMapper {
     @Select("select * from examination where eid = #{eid}")
     Exam findById(Integer eid);
 
-    @Insert("insert into examination(eid, cid, ebegin, eend, esubject, estate) values (4, #{cid},#{ebegin},#{eend},#{esubject},#{estate})")
+    @Insert("insert into examination(eid, cid, ebegin, eend, esubject, estate, pid) values (4, #{cid},#{ebegin},#{eend},#{esubject},#{estate},#{pid})")
     int addExam(Exam exam);
 
     @Select("select * from examination where uuid = #{uuid}")
