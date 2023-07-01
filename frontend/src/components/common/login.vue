@@ -56,7 +56,7 @@
             this.$cookies.set("role", userData.role)
             switch(userData.utype) {
               case 1:  //管理员
-                this.$router.push({path: '/index' })
+                this.$router.push({path: '/admin' })
                 break
               case 2: //学生
                 this.$router.push({path: '/student' })

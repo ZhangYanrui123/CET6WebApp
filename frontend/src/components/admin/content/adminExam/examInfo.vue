@@ -2,35 +2,17 @@
 <template>
     <section class="add">
         <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="姓名">
-                <el-input v-model="form.uname"></el-input>
+            <el-form-item label="学校">
+                <el-input v-model="form.cuniversity"></el-input>
             </el-form-item>
-            <el-form-item label="性别">
-                <el-input v-model="form.usex"></el-input>
+            <el-form-item label="教室">
+                <el-input v-model="form.cclassroom"></el-input>
             </el-form-item>
-            <el-form-item label="学院">
-                <el-input v-model="form.scollege"></el-input>
+            <el-form-item label="开放时间">
+                <el-input v-model="form.copen"></el-input>
             </el-form-item>
-            <el-form-item label="所属专业">
-                <el-input v-model="form.smajority"></el-input>
-            </el-form-item>
-            <el-form-item label="年级">
-                <el-input v-model="form.sgrade"></el-input>
-            </el-form-item>
-            <el-form-item label="班级">
-                <el-input v-model="form.sclass"></el-input>
-            </el-form-item>
-            <el-form-item label="电话号码">
-                <el-input v-model="form.utel"></el-input>
-            </el-form-item>
-            <el-form-item label="身份证号">
-                <el-input v-model="form.udocno"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱">
-                <el-input v-model="form.umail"></el-input>
-            </el-form-item>
-            <el-form-item label="密码">
-                <el-input v-model="form.upwd"></el-input>
+            <el-form-item label="关闭时间">
+                <el-input v-model="form.cclose"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit()">立即创建</el-button>
@@ -46,25 +28,17 @@ export default {
     data() {
         return {
             form: { //表单数据初始化
-                suniversity: "南开大学",
-                uname: null,
-                sgrade: null,
-                smajority: null,
-                sclass: null,
-                scollege: null,
-                utel: null,
-                umail: null,
-                upwd: null,
-                udocno: null,
-                usex: null,
-                role: 2
+                cuniversity: "",
+                cclassroom: "",
+                copen:"",
+                close:""
             }
         };
     },
     methods: {
         onSubmit() { //数据提交
             this.$axios({
-                url: 'http://127.0.0.1:8081/api/student/addStudent',
+                url: 'http://127.0.0.1:8081/api/exam/addExam',
                 method: 'post',
                 data: {
                     ...this.form
@@ -75,7 +49,7 @@ export default {
                         message: '数据添加成功',
                         type: 'success'
                     })
-                    this.$router.push({path: '/admin/adminStudent/studentList'})
+                    this.$router.push({path: '/admin/adminExam/examList'})
                 }
             })
         },

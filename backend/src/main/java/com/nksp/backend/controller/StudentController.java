@@ -9,6 +9,7 @@ import com.nksp.backend.serviceimpl.UserServiceImpl;
 import com.nksp.backend.util.ApiResultHandler;
 import com.nksp.backend.vo.RegisterInfo;
 import com.nksp.backend.vo.StudentInfo;
+import com.nksp.backend.vo.StudentMainInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,10 +92,10 @@ public class StudentController {
     }
 
     @PostMapping("/api/admin/deleteStudent")
-    public ApiResult deleteStudent(@RequestParam("uname") String uname, @RequestParam("sno") Integer sno) {
-        System.out.println(uname +  sno);
-        int ret1 = studentService.deleteStudentByNo(sno);
-        int ret2 = userService.deleteUserByName(uname);
+    public ApiResult deleteStudent(@RequestBody StudentMainInfo smi) {
+        System.out.println(smi.getUname() + smi.getSno());
+        int ret1 = studentService.deleteStudentByNo(smi.getSno());
+        int ret2 = userService.deleteUserByName(smi.getUname());
         if (ret1>0 && ret2>0) {
             return ApiResultHandler.buildApiResult(200, "请求成功", true);
         } else {

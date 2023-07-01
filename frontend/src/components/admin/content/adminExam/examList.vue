@@ -47,13 +47,18 @@ export default {
                     {
                         cuniversity: '南开大学',
                         cclassroom: 'B402',
-                        copen: '2023-7-1',
-                        cclose: '2023-7-2'
+                        copen: '2023-06-04',
+                        cclose: '2023-06-06'
                     }, {
                         cuniversity: '南开大学',
                         cclassroom: 'B403',
-                        copen: '2023-7-1',
-                        cclose: '2023-7-2'
+                        copen: '2023-06-04',
+                        cclose: '2023-06-16'
+                    }, {
+                        cuniversity: '南开大学',
+                        cclassroom: 'C129',
+                        copen: '2023-07-02',
+                        cclose: '2023-07-20'
                     }
                 ] // 初始化为一个空数组
             },
