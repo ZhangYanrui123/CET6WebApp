@@ -108,6 +108,9 @@
                             this.$router.push({path: '/teacher'})
                             break
                     }
+                    this.$message("注册成功",{
+                        type: 'info'
+                    })
                 }
                 else{
                     this.$message("注册失败",{

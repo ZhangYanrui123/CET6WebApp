@@ -49,9 +49,7 @@ public class JoinController {
         for(Join join : joinlist) {
             Exam exam = examService.findById(join.getEid());
             // compareTo:如果调用者在参数之前，则小于0
-            System.out.println("survivor");
             if(new Date().compareTo(exam.getEbegin())<0){
-                System.out.println("survivor after");
                 Fee fee = feeService.findById(join.getFid());
                 JoinData joinData = new JoinData();
                 joinData.setInfo(exam.getEid(), exam.getEsubject(), exam.getEbegin(), exam.getEend(), join.getJstate(), fee.getFamount());
@@ -80,15 +78,39 @@ public class JoinController {
         }
     }
 
-//    @PostMapping("/api/submitjoin")
-//    public ApiResult submitJoin(@RequestBody LoginInfo params) {
-//
-//        if (res != null) {
-//            System.out.println("---res!");
-//            System.out.println(res);
-//            return ApiResultHandler.buildApiResult(200, "请求成功", res);
-//        } else {
-//            return ApiResultHandler.buildApiResult(404, "查询的考试不存在", null);
-//        }
-//    }
+    @PostMapping("/api/join/submitJoin")
+    public ApiResult submitJoin(@RequestBody Join params) {
+        System.out.println(params);
+        int uuid = params.getUuid();
+        int eid = params.getEid();
+        Join join = new Join();
+        join.setUuid(uuid);
+        join.setEid(eid);
+        join.setJstate(1);
+        join.setFid(1);
+        int res = joinService.insertJoin(join);
+        if (res != 0) {
+            System.out.println("---res!");
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的考试不存在", null);
+        }
+    }
+
+
+    @PostMapping("/api/join/deleteJoin")
+    public ApiResult deleteJoin(@RequestBody Join params) {
+        System.out.println(params);
+        int uuid = params.getUuid();
+        int eid = params.getEid();
+        int res = joinService.deleteJoin(uuid, eid);
+        if (res != 0) {
+            System.out.println("---res!");
+            System.out.println(res);
+            return ApiResultHandler.buildApiResult(200, "请求成功", res);
+        } else {
+            return ApiResultHandler.buildApiResult(404, "查询的考试不存在", null);
+        }
+    }
 }

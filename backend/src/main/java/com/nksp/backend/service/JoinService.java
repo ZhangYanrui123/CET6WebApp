@@ -11,4 +11,8 @@ public interface JoinService {
     List<Join> getAllJoin(Integer uuid);
 
     int addJoin(Join join);
+
+    int insertJoin(Join join);
+
+    int deleteJoin(int uuid, int eid);
 }

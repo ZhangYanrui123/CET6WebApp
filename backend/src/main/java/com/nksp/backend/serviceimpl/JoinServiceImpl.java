@@ -1,12 +1,9 @@
 package com.nksp.backend.serviceimpl;
 
 import com.nksp.backend.entity.Join;
-import com.nksp.backend.entity.Student;
 import com.nksp.backend.mapper.JoinMapper;
-import com.nksp.backend.mapper.StudentMapper;
 import com.nksp.backend.service.JoinService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,4 +22,10 @@ public class JoinServiceImpl implements JoinService {
 
     @Override
     public int addJoin(Join join){return joinMapper.addJoin(join);}
+
+    @Override
+    public int insertJoin(Join join) {return joinMapper.insertJoin(join);}
+
+    @Override
+    public int deleteJoin(int uuid, int eid) {return joinMapper.deleteJoin(uuid, eid);}
 }
