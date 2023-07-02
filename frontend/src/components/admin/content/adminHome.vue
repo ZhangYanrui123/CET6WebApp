@@ -34,9 +34,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.studentCount = 200;
-      this.teacherCount = 20;
-      this.examCount = 5;
+      this.studentCount = 2;
+      this.teacherCount = 2;
+      this.examCount = 3;
       this.latestDynamics = [
         { id: 1, title: '系统更新' },
         { id: 2, title: '新增功能上线' },
