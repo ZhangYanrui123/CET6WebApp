@@ -1,50 +1,61 @@
 <!--学生考试首页-->
 <template>
-    <div class = "student">
-        <div class = "head">
-            <ul class = "navigation">
-                <li><router-link to="/application">考试报名</router-link></li>
-                <li><router-link to="/examTable">进入考试</router-link></li>
-                <li><router-link to="/scoreTable">查看成绩</router-link></li>
-                <li><router-link to="/manage">管理信息</router-link></li>
-                <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
-                    <a href="javascript:;">{{this.uname}}</a>
-                    <div class="ex" v-if="flag">
-                        <p class="exit" @click="exit()">退出</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-      <div class="router">
-        <router-view></router-view>
-      </div>
+  <div class="student">
+    <div class="head">
+      <ul class="navigation">
+        <li><router-link to="/application">考试报名</router-link></li>
+        <li><router-link to="/examTable">进入考试</router-link></li>
+        <li><router-link to="/scoreTable">查看成绩</router-link></li>
+        <li><router-link to="/manage">管理信息</router-link></li>
+        <li class="right" @mouseenter="flag = !flag" @mouseleave="flag = !flag">
+          <a href="javascript:;">{{ uname }}</a>
+          <div class="ex" v-if="flag">
+            <p class="exit" @click="exit()">退出</p>
+          </div>
+        </li>
+      </ul>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        flag: false,
-        uname: this.$cookies.get("uname")
+    <div class="router">
+      <router-view></router-view>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      flag: false,
+      uname: null
+    };
+  },
+  created() {
+    this.getCookies();
+  },
+  methods: {
+    exit() {
+      this.$cookies.set("uname", null);
+      this.$cookies.set("uuid", null);
+      this.$cookies.set("role", 0);
+      this.$router.push({ path: "/login" });
+    },
+    getCookies() {
+      this.uname = this.$cookies.get("uname");
+      const uuid = this.$cookies.get("uuid");
+      console.log(uuid)
+      console.log(uuid=="null")
+      if (uuid=="null") {
+        this.showNoPermissionPopup();
       }
     },
-    created() {
-      this.getCookies()
-    },
-    methods: {
-      exit() {  //退出登录
-        this.$cookies.set("uname", null)
-        this.$cookies.set("uuid", null)
-        this.$cookies.set("role", 0)
-        this.$router.push({path:"/login"}) //跳转到登录页面
-      },
-      getCookies() {  //获取cookie
-            this.uname = this.$cookies.get("uname")
-        },
+    showNoPermissionPopup() {
+      // 在此处弹出“没有权限”的提示框
+      alert("没有权限");
+      this.exit(); // 调用退出方法
     }
   }
-  </script>
+};
+</script>
   
   <style scoped>
 .student .head {
