@@ -9,4 +9,6 @@ public interface JoinService {
     Join findById(Integer jid);
 
     List<Join> getAllJoin(Integer uuid);
+
+    int addJoin(Join join);
 }

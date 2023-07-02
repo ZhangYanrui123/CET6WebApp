@@ -22,4 +22,7 @@ public class JoinServiceImpl implements JoinService {
 
     @Override
     public List<Join> getAllJoin(Integer uuid){return joinMapper.getAllJoin(uuid);}
+
+    @Override
+    public int addJoin(Join join){return joinMapper.addJoin(join);}
 }
